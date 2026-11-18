@@ -52,19 +52,19 @@
 
   <!-- ==================== 2. MAIN HEADER & NAVIGATION ==================== -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
       
-      <!-- Brand & Emblem -->
-      <a href="#hero" class="flex items-center gap-3.5 group">
-        <div class="w-12 h-12 rounded-full border-2 border-amber-500/80 p-0.5 shadow-sm bg-white shrink-0 flex items-center justify-center">
-          <img src="assets/logo_ozmma.svg" alt="ЎзММА логотипи" class="w-full h-full object-contain"
-               onerror="this.src='https://api.iconify.design/heroicons:shield-check.svg?color=%231e3a8a'">
+      <!-- Brand & Emblem (with official OMMA Logo) -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="h-12 flex items-center justify-center shrink-0">
+          <img src="assets/logo_ozmma.png" alt="ЎзММА расмий логотипи" class="h-11 w-auto object-contain"
+               onerror="this.src='assets/logo_ozmma.svg'">
         </div>
         <div>
-          <div class="text-lg font-extrabold text-slate-900 tracking-tight leading-none group-hover:text-blue-900 transition">
+          <div class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-none group-hover:text-blue-900 transition">
             ЎзММА
           </div>
-          <div class="text-[11px] font-bold text-slate-500 leading-tight mt-0.5">
+          <div class="text-[11px] font-bold text-slate-600 leading-tight mt-0.5">
             Ўзбекистон Миллий Медиа Ассоциацияси
           </div>
           <div class="text-[9px] text-gov-coral font-bold tracking-wider uppercase">
@@ -96,7 +96,6 @@
 
   <!-- ==================== 3. MONUMENTAL HERO BANNER (BALAD Government Hero) ==================== -->
   <section id="hero" class="relative bg-gov-navy text-white overflow-hidden py-14 lg:py-20 border-b-4 border-amber-500">
-    <!-- Background SVG with Capitol/Dome Watermark -->
     <div class="absolute inset-0 opacity-40 pointer-events-none">
       <img src="assets/hero_bg.svg" alt="Background watermark" class="w-full h-full object-cover">
     </div>
@@ -152,9 +151,8 @@
         <div class="bg-slate-900/85 backdrop-blur-md rounded-3xl border border-slate-700 p-6 shadow-2xl relative overflow-hidden group">
           <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-blue-600/10 rounded-full blur-2xl pointer-events-none"></div>
 
-          <!-- Video / Leader Photo Placeholder Slot -->
           <div class="relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 mb-4 flex items-center justify-center">
-            <!-- RASM O'RNI: ushbu rasm o'rniga o'zingizning JPG/PNG rasmingizni joylashtirishingiz mumkin -->
+            <!-- RASM O'RNI: assets/leader.jpg -->
             <img src="assets/leader.jpg" alt="Раҳбар сурати" class="w-full h-full object-cover"
                  onerror="this.src='assets/hero_bg.svg'">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex items-end p-4">
@@ -197,13 +195,12 @@
         </p>
       </div>
 
-      <!-- 4 News Cards Grid (Exact Balad style) -->
+      <!-- 4 News Cards Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <!-- Card 1: Президент ҳужжатлари -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
           <div class="relative h-44 bg-slate-100 overflow-hidden">
-            <!-- RASM O'RNI: assets/news_president.jpg -->
             <img src="assets/news_president.jpg" alt="Президент ҳужжатлари" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                  onerror="this.src='assets/hero_bg.svg'">
             <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-blue-700 text-white font-extrabold text-[10px] shadow-sm">
@@ -233,7 +230,6 @@
         <!-- Card 2: Ҳукумат қарорлари -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
           <div class="relative h-44 bg-slate-100 overflow-hidden">
-            <!-- RASM O'RNI: assets/news_gov.jpg -->
             <img src="assets/news_gov.jpg" alt="Ҳукумат қарорлари" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                  onerror="this.src='assets/hero_bg.svg'">
             <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-emerald-700 text-white font-extrabold text-[10px] shadow-sm">
@@ -263,7 +259,6 @@
         <!-- Card 3: Ички баёнлар -->
         <div class="bg-white rounded-2xl border border-rose-200 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group bg-rose-50/10">
           <div class="relative h-44 bg-slate-100 overflow-hidden">
-            <!-- RASM O'RNI: assets/news_internal.jpg -->
             <img src="assets/news_internal.jpg" alt="Ички баёнлар" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                  onerror="this.src='assets/hero_bg.svg'">
             <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-gov-coral text-white font-extrabold text-[10px] shadow-sm">
@@ -293,7 +288,6 @@
         <!-- Card 4: ХДФУ хатлари -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
           <div class="relative h-44 bg-slate-100 overflow-hidden">
-            <!-- RASM O'RNI: assets/news_xdfu.jpg -->
             <img src="assets/news_xdfu.jpg" alt="ХДФУ хатлар" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                  onerror="this.src='assets/hero_bg.svg'">
             <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-purple-700 text-white font-extrabold text-[10px] shadow-sm">
@@ -325,7 +319,7 @@
     </div>
   </section>
 
-  <!-- ==================== 5. DEPARTMENTS & INFORMATION DESK (6 Cards + Helpline Sidebar) ==================== -->
+  <!-- ==================== 5. DEPARTMENTS & INFORMATION DESK (7 Cards Separated: Matbuot & Hisobchilik separated!) ==================== -->
   <section id="departments" class="py-14 bg-slate-100/70 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 space-y-8">
       
@@ -337,7 +331,7 @@
             Бўлинмалар ва Ахборот Маркази
           </h2>
           <p class="text-slate-500 text-xs sm:text-sm mt-1">
-            ЎзММА таркибий тузилмалари бўйича топшириқларнинг тақсимланиши ва ижро ҳолати
+            ЎзММАнинг барча 7 та таркибий тузилмаси бўйича топшириқлар тақсимоти ва ижро ҳолати
           </p>
         </div>
         <div class="text-xs font-semibold text-slate-500">
@@ -345,13 +339,13 @@
         </div>
       </div>
 
-      <!-- Main Layout: 6 Grid Cards + Sidebar Box (Exact Balad layout) -->
+      <!-- Main Layout: 7 Department Cards + Right Sidebar -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- 6 Department Cards (8 Columns) -->
+        <!-- 7 Department Cards Grid (8 Columns) -->
         <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           
-          <!-- Dept 1 -->
+          <!-- Dept 1: Умаров С. -->
           <div onclick="selectDepartment('С.Умаров (19 та)')" class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-blue-400 transition cursor-pointer flex flex-col justify-between space-y-3 group">
             <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center text-xl font-bold group-hover:bg-blue-600 group-hover:text-white transition">
               🏛️
@@ -366,13 +360,17 @@
             </div>
           </div>
 
-          <!-- Dept 2 -->
+          <!-- Dept 2: Устабабаев С. (WITH PHOTO!) -->
           <div onclick="selectDepartment('С.Устабабаев (12 та)')" class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-blue-400 transition cursor-pointer flex flex-col justify-between space-y-3 group">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl font-bold group-hover:bg-emerald-600 group-hover:text-white transition">
-              👥
+            <div class="flex items-center justify-between">
+              <div class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-emerald-500/50 shadow-xs">
+                <img src="assets/official_ustabaev.png" alt="Устабабаев Санджар" class="w-full h-full object-cover object-top"
+                     onerror="this.src='assets/avatar_placeholder.svg'">
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Аъзолар</span>
             </div>
             <div>
-              <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-emerald-700 transition">Аъзолар билан ишлаш</h3>
+              <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-emerald-700 transition">Аъзолар билан ишлаш бўлими</h3>
               <p class="text-[11px] text-slate-500 mt-0.5">Устабабаев Санджар</p>
             </div>
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
@@ -381,13 +379,13 @@
             </div>
           </div>
 
-          <!-- Dept 3 -->
+          <!-- Dept 3: Хакимов Н. -->
           <div onclick="selectDepartment('Н.Хакимов (9 та)')" class="bg-white p-5 rounded-2xl border border-rose-200 shadow-xs hover:shadow-lg hover:border-rose-400 transition cursor-pointer flex flex-col justify-between space-y-3 group bg-rose-50/10">
             <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-700 flex items-center justify-center text-xl font-bold group-hover:bg-purple-600 group-hover:text-white transition">
               🌐
             </div>
             <div>
-              <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-purple-700 transition">Ҳалқаро ҳамкорлик</h3>
+              <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-purple-700 transition">Ҳалқаро ҳамкорлик бўлими</h3>
               <p class="text-[11px] text-slate-500 mt-0.5">Хакимов Низом</p>
             </div>
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
@@ -396,7 +394,7 @@
             </div>
           </div>
 
-          <!-- Dept 4 -->
+          <!-- Dept 4: Ачилов Ф. -->
           <div onclick="selectDepartment('Ф.Ачилов (8 та)')" class="bg-white p-5 rounded-2xl border border-rose-200 shadow-xs hover:shadow-lg hover:border-rose-400 transition cursor-pointer flex flex-col justify-between space-y-3 group bg-rose-50/10">
             <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-bold group-hover:bg-amber-600 group-hover:text-white transition">
               📡
@@ -411,7 +409,7 @@
             </div>
           </div>
 
-          <!-- Dept 5 -->
+          <!-- Dept 5: Ахмедов У. -->
           <div onclick="selectDepartment('У.Ахмедов (4 та)')" class="bg-white p-5 rounded-2xl border border-rose-200 shadow-xs hover:shadow-lg hover:border-rose-400 transition cursor-pointer flex flex-col justify-between space-y-3 group bg-rose-50/10">
             <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-xl font-bold group-hover:bg-indigo-600 group-hover:text-white transition">
               💼
@@ -426,24 +424,46 @@
             </div>
           </div>
 
-          <!-- Dept 6 & 7 (Combined) -->
-          <div onclick="selectDepartment('Н.Қутбиддинова (3 та)')" class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-blue-400 transition cursor-pointer flex flex-col justify-between space-y-3 group">
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 text-pink-700 flex items-center justify-center text-xl font-bold group-hover:bg-pink-600 group-hover:text-white transition">
-              📢
+          <!-- Dept 6: МАТБУОТ ХИЗМАТИ (АЛОҲИДА, WITH PHOTO OF QUTBIDDINOVA!) -->
+          <div onclick="selectDepartment('Н.Қутбиддинова (3 та)')" class="bg-white p-5 rounded-2xl border border-rose-200 shadow-xs hover:shadow-lg hover:border-pink-400 transition cursor-pointer flex flex-col justify-between space-y-3 group bg-rose-50/10">
+            <div class="flex items-center justify-between">
+              <div class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-pink-500/50 shadow-xs">
+                <img src="assets/official_qutbiddinova.png" alt="Қутбиддинова Нодира" class="w-full h-full object-cover object-top"
+                     onerror="this.src='assets/avatar_placeholder.svg'">
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-pink-50 text-pink-700 border border-pink-200">Матбуот</span>
             </div>
             <div>
-              <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-pink-700 transition">Матбуот ва Ҳисобчилик</h3>
-              <p class="text-[11px] text-slate-500 mt-0.5">Қутбиддинова Н. • Хаитов Ш.</p>
+              <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-pink-700 transition">Матбуот хизмати (Жамоатчилик)</h3>
+              <p class="text-[11px] text-slate-500 mt-0.5">Матбуот котиби: Қутбиддинова Нодира</p>
             </div>
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
-              <span class="font-bold text-slate-700">5 та топшириқ</span>
-              <span class="text-rose-600 font-extrabold">5 қарздорлик</span>
+              <span class="font-bold text-slate-700">3 та топшириқ</span>
+              <span class="text-rose-600 font-extrabold">3 қарздорлик (100%)</span>
+            </div>
+          </div>
+
+          <!-- Dept 7: БУХГАЛТЕРИЯ ВА ҲИСОБЧИЛИК (АЛОҲИДА) -->
+          <div onclick="selectDepartment('Ш.Хаитов (2 та)')" class="bg-white p-5 rounded-2xl border border-rose-200 shadow-xs hover:shadow-lg hover:border-emerald-400 transition cursor-pointer flex flex-col justify-between space-y-3 group bg-rose-50/10 sm:col-span-2 lg:col-span-3">
+            <div class="flex items-center justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-800 flex items-center justify-center text-xl font-bold">
+                💰
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Молия</span>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-emerald-700 transition">Бухгалтерия ва Ҳисобчилик бўлими (Молия)</h3>
+              <p class="text-[11px] text-slate-500 mt-0.5">Бош ҳисобчи: Хаитов Шохруз</p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+              <span class="font-bold text-slate-700">2 та топшириқ</span>
+              <span class="text-rose-600 font-extrabold">2 қарздорлик (100%)</span>
             </div>
           </div>
 
         </div>
 
-        <!-- Right Helpline / Status Box (4 Columns - Balad style) -->
+        <!-- Right Helpline / Status Box (4 Columns) -->
         <div class="lg:col-span-4 space-y-4">
           <div class="bg-gov-navy text-white p-6 rounded-3xl shadow-xl space-y-5">
             <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -491,7 +511,6 @@
         <!-- Left: Featured Upcoming Banner (5 Columns) -->
         <div class="lg:col-span-5 bg-gradient-to-br from-blue-900 to-slate-900 rounded-3xl p-6 text-white shadow-xl space-y-4">
           <div class="relative h-48 rounded-2xl overflow-hidden bg-slate-800 border border-slate-700">
-            <!-- RASM O'RNI: assets/schedule_feature.jpg -->
             <img src="assets/schedule_feature.jpg" alt="Муҳим муддатлар" class="w-full h-full object-cover"
                  onerror="this.src='assets/hero_bg.svg'">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 to-transparent flex items-end p-4">
@@ -510,14 +529,13 @@
           </div>
         </div>
 
-        <!-- Right: Upcoming Schedules List (7 Columns - Balad style) -->
+        <!-- Right: Upcoming Schedules List (7 Columns) -->
         <div class="lg:col-span-7 space-y-3">
           <div class="flex items-center justify-between border-b border-slate-200 pb-2 mb-3">
             <h3 class="text-base font-extrabold text-slate-900">Муддати Келаётган Топшириқлар Жадвали</h3>
             <span class="text-xs font-bold text-gov-coral">2026 йил ноябрь</span>
           </div>
 
-          <!-- Schedule items -->
           <div class="space-y-3">
             <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3 hover:bg-slate-100 transition">
               <div class="flex items-center gap-3">
@@ -594,7 +612,7 @@
     </div>
   </section>
 
-  <!-- ==================== 7. MEET OFFICIALS (Leadership & Dept Heads) ==================== -->
+  <!-- ==================== 7. MEET OFFICIALS (Leadership & Dept Heads with Real Photos) ==================== -->
   <section id="officials" class="py-14 bg-slate-100/70 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 space-y-8">
       
@@ -608,13 +626,12 @@
         </p>
       </div>
 
-      <!-- Officials Cards Grid (Exact Balad style portrait cards) -->
+      <!-- Officials Cards Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
         
         <!-- Official 1: Умаров С. -->
         <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition group">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <!-- RASM O'RNI: assets/official_umarov.jpg -->
             <img src="assets/official_umarov.jpg" alt="Умаров Саидаҳмад" class="w-full h-full object-cover group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-slate-900/80 text-white text-[10px] font-bold">
@@ -628,19 +645,18 @@
           </div>
         </div>
 
-        <!-- Official 2: Устабабаев С. -->
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition group">
+        <!-- Official 2: Устабабаев С. (REAL PHOTO) -->
+        <div class="bg-white rounded-2xl border-2 border-emerald-500/40 overflow-hidden shadow-xs hover:shadow-xl transition group bg-emerald-50/10">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <!-- RASM O'RNI: assets/official_ustabaev.jpg -->
-            <img src="assets/official_ustabaev.jpg" alt="Устабабаев Санджар" class="w-full h-full object-cover group-hover:scale-105 transition"
+            <img src="assets/official_ustabaev.png" alt="Устабабаев Санджар" class="w-full h-full object-cover object-top group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-slate-900/80 text-white text-[10px] font-bold">
               12 та топшириқ
             </div>
           </div>
           <div class="p-4 space-y-1">
-            <h4 class="font-extrabold text-slate-900 text-xs">Устабабаев Санджар</h4>
-            <div class="text-[10px] text-slate-500">Аъзолар билан ишлаш бўлими</div>
+            <h4 class="font-extrabold text-slate-900 text-xs text-emerald-800">Устабабаев Санджар</h4>
+            <div class="text-[10px] text-slate-500">Аъзолар билан ишлаш бўлими бошлиғи</div>
             <div class="pt-2 text-[10px] font-extrabold text-rose-600">Қарздорлик: 5 та</div>
           </div>
         </div>
@@ -648,7 +664,6 @@
         <!-- Official 3: Хакимов Н. -->
         <div class="bg-white rounded-2xl border border-rose-200 overflow-hidden shadow-xs hover:shadow-lg transition group bg-rose-50/10">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <!-- RASM O'RNI: assets/official_xakimov.jpg -->
             <img src="assets/official_xakimov.jpg" alt="Хакимов Низом" class="w-full h-full object-cover group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-gov-coral text-white text-[10px] font-bold">
@@ -665,7 +680,6 @@
         <!-- Official 4: Ачилов Ф. -->
         <div class="bg-white rounded-2xl border border-rose-200 overflow-hidden shadow-xs hover:shadow-lg transition group bg-rose-50/10">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <!-- RASM O'RNI: assets/official_achilov.jpg -->
             <img src="assets/official_achilov.jpg" alt="Ачилов Фаёз" class="w-full h-full object-cover group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-gov-coral text-white text-[10px] font-bold">
@@ -682,7 +696,6 @@
         <!-- Official 5: Ахмедов У. -->
         <div class="bg-white rounded-2xl border border-rose-200 overflow-hidden shadow-xs hover:shadow-lg transition group bg-rose-50/10">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <!-- RASM O'RNI: assets/official_axmedov.jpg -->
             <img src="assets/official_axmedov.jpg" alt="Ахмедов Улуғбек" class="w-full h-full object-cover group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-gov-coral text-white text-[10px] font-bold">
@@ -696,27 +709,25 @@
           </div>
         </div>
 
-        <!-- Official 6: Қутбиддинова Н. -->
-        <div class="bg-white rounded-2xl border border-rose-200 overflow-hidden shadow-xs hover:shadow-lg transition group bg-rose-50/10">
+        <!-- Official 6: Қутбиддинова Н. (REAL PHOTO) -->
+        <div class="bg-white rounded-2xl border-2 border-pink-500/40 overflow-hidden shadow-xs hover:shadow-xl transition group bg-pink-50/10">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <!-- RASM O'RNI: assets/official_qutbiddinova.jpg -->
-            <img src="assets/official_qutbiddinova.jpg" alt="Қутбиддинова Нодира" class="w-full h-full object-cover group-hover:scale-105 transition"
+            <img src="assets/official_qutbiddinova.png" alt="Қутбиддинова Нодира" class="w-full h-full object-cover object-top group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-gov-coral text-white text-[10px] font-bold">
               3 та (100% қарз)
             </div>
           </div>
           <div class="p-4 space-y-1">
-            <h4 class="font-extrabold text-slate-900 text-xs">Қутбиддинова Нодира</h4>
+            <h4 class="font-extrabold text-slate-900 text-xs text-pink-800">Қутбиддинова Нодира</h4>
             <div class="text-[10px] text-slate-500">Матбуот котиби</div>
             <div class="pt-2 text-[10px] font-extrabold text-rose-600">Қарздорлик: 3 та</div>
           </div>
         </div>
 
-        <!-- Official 7: Хаитов Ш. -->
+        <!-- Official 7: Хаитов Ш. (Алоҳида Ҳисобчилик) -->
         <div class="bg-white rounded-2xl border border-rose-200 overflow-hidden shadow-xs hover:shadow-lg transition group bg-rose-50/10">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <!-- RASM O'RNI: assets/official_xaitov.jpg -->
             <img src="assets/official_xaitov.jpg" alt="Хаитов Шохруз" class="w-full h-full object-cover group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-gov-coral text-white text-[10px] font-bold">
@@ -725,7 +736,7 @@
           </div>
           <div class="p-4 space-y-1">
             <h4 class="font-extrabold text-slate-900 text-xs">Хаитов Шохруз</h4>
-            <div class="text-[10px] text-slate-500">Бош ҳисобчи</div>
+            <div class="text-[10px] text-slate-500">Бош ҳисобчи (Молия)</div>
             <div class="pt-2 text-[10px] font-extrabold text-rose-600">Қарздорлик: 2 та</div>
           </div>
         </div>
@@ -829,7 +840,6 @@
             class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg w-56">
         </div>
 
-        <!-- Task List Container -->
         <div id="registryListContainer" class="space-y-3">
           <!-- Injected by script -->
         </div>
@@ -850,8 +860,8 @@
               <option value="Н.Хакимов (9 та)">Н.Хакимов (Ҳалқаро ҳамкорлик — 9 та)</option>
               <option value="Ф.Ачилов (8 та)">Ф.Ачилов (Тармоқ таҳлили — 8 та)</option>
               <option value="У.Ахмедов (4 та)">У.Ахмедов (Маркетинг — 4 та)</option>
-              <option value="Н.Қутбиддинова (3 та)">Н.Қутбиддинова (Матбуот — 3 та)</option>
-              <option value="Ш.Хаитов (2 та)">Ш.Хаитов (Ҳисобчилик — 2 та)</option>
+              <option value="Н.Қутбиддинова (3 та)">Н.Қутбиддинова (Матбуот хизмати — 3 та)</option>
+              <option value="Ш.Хаитов (2 та)">Ш.Хаитов (Бухгалтерия — 2 та)</option>
             </select>
           </div>
         </div>
@@ -875,7 +885,7 @@
     </div>
   </section>
 
-  <!-- ==================== 9. EMERGENCY NUMBERS STRIP (Balad Template) ==================== -->
+  <!-- ==================== 9. EMERGENCY NUMBERS STRIP ==================== -->
   <section class="bg-slate-50 py-10 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
@@ -900,21 +910,23 @@
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <div class="text-xs text-blue-600 font-bold uppercase">Таркибий Бўлимлар</div>
           <div class="text-3xl font-black text-blue-900 mt-1">7</div>
-          <div class="text-[11px] text-slate-500 mt-1">Масъул бўлинмалар</div>
+          <div class="text-[11px] text-slate-500 mt-1">Алоҳида бўлинмалар</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 10. OFFICIAL GOVERNMENT FOOTER ==================== -->
+  <!-- ==================== 10. OFFICIAL GOVERNMENT FOOTER (with real logo) ==================== -->
   <footer class="bg-gov-navy text-slate-300 pt-12 pb-6 border-t-4 border-gov-coral text-xs">
     <div class="max-w-7xl mx-auto px-4 space-y-8">
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <!-- Col 1: About -->
         <div class="space-y-3">
-          <div class="flex items-center gap-2 text-white font-extrabold text-base">
-            <span class="text-gov-coral">●</span> ЎзММА Мониторинг
+          <div class="flex items-center gap-3 text-white font-extrabold text-base">
+            <img src="assets/logo_ozmma.png" alt="ЎзММА логотипи" class="h-8 w-auto object-contain bg-white/10 p-1 rounded-lg"
+                 onerror="this.src='assets/logo_ozmma.svg'">
+            <span>ЎзММА Мониторинг</span>
           </div>
           <p class="text-slate-400 text-xs leading-relaxed">
             Ўзбекистон Миллий медиа ассоциациясининг "edo.ijro.uz" тизимидаги топшириқлари ижро интизоми ва кунлик таҳлил платформаси.
@@ -942,7 +954,8 @@
             <li><a href="#departments" class="hover:text-white transition">&bull; Лойиҳалар билан ишлаш</a></li>
             <li><a href="#departments" class="hover:text-white transition">&bull; Аъзолар билан ишлаш</a></li>
             <li><a href="#departments" class="hover:text-white transition">&bull; Ҳалқаро ҳамкорлик</a></li>
-            <li><a href="#departments" class="hover:text-white transition">&bull; Тармоқ таҳлили ва медиа</a></li>
+            <li><a href="#departments" class="hover:text-white transition">&bull; Матбуот хизмати</a></li>
+            <li><a href="#departments" class="hover:text-white transition">&bull; Бухгалтерия ва Молия</a></li>
           </ul>
         </div>
 
