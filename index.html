@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЎзММА - Ижро Интизоми ва Топшириқлар Мониторинги (edo.ijro.uz)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  
+  
+  
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 9999px; }
+    .tab-nav.active { background-color: #1e40af; color: #ffffff; font-weight: 600; }
+    .badge-overdue { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .badge-upcoming { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .badge-done { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+    <div class="px-6 py-3 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-700 via-blue-800 to-indigo-900 flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-blue-900/20 tracking-wider">
+          ЎзММА
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-extrabold text-slate-900 leading-tight">
+              Ижро Интизоми ва Топшириқлар Мониторинги
+            </h1>
+            <span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-800 text-[11px] font-bold border border-blue-200">edo.ijro.uz</span>
+          </div>
+          <p class="text-xs text-slate-500 flex items-center gap-2 mt-0.5">
+            <span>Ўзбекистон Республикаси Президенти, Ҳукумат ва ички топшириқлар таҳлили</span>
+            <span class="w-1 h-1 rounded-full bg-slate-300"></span>
+            <span class="font-semibold text-blue-700" id="currentDateDisplay">18.11.2026 йил ҳолатига</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- User Role Mode & Action buttons -->
+      <div class="flex flex-wrap items-center gap-3">
+        
+        <!-- View Role Switcher -->
+        <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
+          <button id="roleBtnBoss" onclick="switchRole('boss')" class="px-3 py-1.5 rounded-lg transition bg-white text-blue-800 shadow-xs flex items-center gap-1.5">
+            <span>👑</span>
+            <span>Раҳбар назорати (Men)</span>
+          </button>
+          <button id="roleBtnExec" onclick="switchRole('executor')" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+            <span>👤</span>
+            <span>Ижрочи кабинети</span>
+          </button>
+        </div>
+
+        <!-- Quick Filter / Search -->
+        <div class="relative">
+          <input type="text" id="quickSearch" oninput="handleGlobalSearch()" placeholder="Ҳужжат, банд ёки масъулни қидириш..." 
+            class="w-56 pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20">
+          <span class="absolute left-2.5 top-2 text-slate-400 text-xs">🔍</span>
+        </div>
+
+        <button onclick="exportSummaryReport()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-xs transition">
+          <span>📊</span>
+          <span class="hidden sm:inline">Ҳисоботни юклаш</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <div class="px-6 flex gap-1 border-t border-slate-100 bg-slate-50/80 overflow-x-auto custom-scrollbar">
+      <button class="tab-nav active px-4 py-2.5 text-xs rounded-lg my-1 transition flex items-center gap-2 whitespace-nowrap" onclick="switchTab('statistika')">
+        <span>📊</span>
+        <span>Статистика & Қарздорлик (Йиғма)</span>
+      </button>
+      <button class="tab-nav px-4 py-2.5 text-xs rounded-lg my-1 transition flex items-center gap-2 whitespace-nowrap text-slate-600 hover:bg-slate-200/60" onclick="switchTab('all-tasks')">
+        <span>📋</span>
+        <span>Барча Топшириқлар Реестри</span>
+        <span class="bg-slate-200 text-slate-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold" id="badgeTotalTasks">57</span>
+      </button>
+      <button class="tab-nav px-4 py-2.5 text-xs rounded-lg my-1 transition flex items-center gap-2 whitespace-nowrap text-slate-600 hover:bg-slate-200/60" onclick="switchTab('executors-view')">
+        <span>👥</span>
+        <span>Ижрочилар Кесимида (Кабинет)</span>
+        <span class="bg-rose-100 text-rose-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold" id="badgeOverdueTasks">43 қарздорлик</span>
+      </button>
+      <button class="tab-nav px-4 py-2.5 text-xs rounded-lg my-1 transition flex items-center gap-2 whitespace-nowrap text-slate-600 hover:bg-slate-200/60" onclick="switchTab('daily-log')">
+        <span>📅</span>
+        <span>Кунлик Ижро Кундалиги & Ўзгаришлар</span>
+        <span class="bg-blue-100 text-blue-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold" id="badgeDailyChanges">+0 ўзгариш</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Notification Banner for Urgency -->
+  <div class="bg-rose-50 border-b border-rose-200 px-6 py-2.5 flex items-center justify-between text-xs text-rose-800">
+    <div class="flex items-center gap-2 font-medium">
+      <span class="text-base leading-none">⚠️</span>
+      <span><strong>Диққат (Қарздорлик ҳолати):</strong> 18.11.2026 йил ҳолатига кўра ЎзММА бўйича <strong>43 та топшириқнинг</strong> ижро муддати ўтиб кетган (қарздорлик юзага келган)!</span>
+    </div>
+    <div class="hidden md:flex items-center gap-3 text-[11px]">
+      <span class="text-rose-600 font-bold underline cursor-pointer" onclick="filterOverdueOnly()">Фақат муддати ўтганларни филтрлаш &rarr;</span>
+    </div>
+  </div>
+
+  <!-- MAIN BODY -->
+  <main class="flex-1 p-6 max-w-7xl mx-auto w-full space-y-6">
+
+    <!-- TAB 1: STATISTIKA -->
+    <div id="tab-statistika" class="space-y-6">
+      
+      <!-- Top 4 Metrics -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Total Tasks -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Жами топшириқлар</span>
+            <span class="p-2 bg-blue-50 text-blue-600 rounded-xl text-sm font-bold">📑</span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-slate-900" id="statTotalCount">57</span>
+            <span class="text-xs text-slate-500 font-medium">та топшириқ</span>
+          </div>
+          <div class="text-[11px] text-slate-500 mt-2 flex items-center gap-1.5">
+            <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+            <span>Президент: 6 • ВМ: 9 • Ички: 42</span>
+          </div>
+        </div>
+
+        <!-- Overdue Tasks (Qarzdorlik) -->
+        <div class="bg-white p-5 rounded-2xl border border-rose-200 bg-rose-50/20 shadow-xs hover:shadow-md transition">
+          <div class="flex items-center justify-between text-rose-600 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-rose-500">Ижро муддати бузилган (Қарздорлик)</span>
+            <span class="p-2 bg-rose-100 text-rose-700 rounded-xl text-sm font-bold">🚨</span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-rose-600" id="statOverdueCount">43</span>
+            <span class="text-xs font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">75.4%</span>
+          </div>
+          <div class="text-[11px] text-rose-600 mt-2 flex items-center gap-1.5 font-medium">
+            <span>Ҳозироқ кунлик чора кўрилиши шарт</span>
+          </div>
+        </div>
+
+        <!-- In progress / upcoming -->
+        <div class="bg-white p-5 rounded-2xl border border-amber-200 shadow-xs hover:shadow-md transition">
+          <div class="flex items-center justify-between text-amber-600 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-amber-500">Назоратдаги (Муддати бор)</span>
+            <span class="p-2 bg-amber-50 text-amber-600 rounded-xl text-sm font-bold">⏳</span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-amber-600" id="statUpcomingCount">14</span>
+            <span class="text-xs font-semibold text-slate-500">24.6%</span>
+          </div>
+          <div class="text-[11px] text-slate-500 mt-2 flex items-center gap-1.5">
+            <span>20-30 ноябрь кунларигача</span>
+          </div>
+        </div>
+
+        <!-- Completed & Daily Changes -->
+        <div class="bg-white p-5 rounded-2xl border border-emerald-200 shadow-xs hover:shadow-md transition">
+          <div class="flex items-center justify-between text-emerald-600 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-500">Бажарилган & Кунлик ўзгариш</span>
+            <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl text-sm font-bold">✅</span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-emerald-600" id="statDoneCount">0</span>
+            <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full" id="statDailyDelta">+0 кунлик</span>
+          </div>
+          <div class="text-[11px] text-slate-500 mt-2 flex items-center gap-1.5">
+            <span>Кунлик мониторинг ҳисобида</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Official Table: Таркибий бўлинмалар ва ижрочилар жадвали -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-50/50">
+          <div>
+            <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span>🏛️</span>
+              <span>Таркибий Бўлинмалар ва Масъул Ижрочилар Бўйича Таҳлил</span>
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5">"edo.ijro.uz" тизимидаги ЎзММА нинг 7 та бўлинмаси ҳолати</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] text-slate-400">Саралаш:</span>
+            <button onclick="sortExecutorsByOverdue()" class="px-2.5 py-1 bg-white border border-slate-200 text-slate-700 rounded-lg text-xs font-medium hover:bg-slate-50">
+              Қарздорлик бўйича &darr;
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs" id="executorsSummaryTable">
+            <thead class="bg-slate-100/70 border-b border-slate-200 text-slate-600 font-bold uppercase text-[10px] tracking-wider">
+              <tr>
+                <th class="py-3 px-4 w-12 text-center">Т/р</th>
+                <th class="py-3 px-4">Таркибий бўлинма ва Масъул раҳбар</th>
+                <th class="py-3 px-3 text-center">Президент ҳужжатлари</th>
+                <th class="py-3 px-3 text-center">Вазирлар Маҳкамаси</th>
+                <th class="py-3 px-3 text-center">Ички ҳужжатлар</th>
+                <th class="py-3 px-3 text-center font-extrabold">Жами топшириқ</th>
+                <th class="py-3 px-3 text-center text-rose-600 font-extrabold">Ижро қарздорлиги (Муддати ўтган)</th>
+                <th class="py-3 px-3 text-center text-blue-600">Кунлик ўзгариш</th>
+                <th class="py-3 px-4 text-center">Ҳаракат</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100" id="executorsTableBody">
+              <!-- Will be rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Execution Progress Visualizer -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
+        <h3 class="text-sm font-bold text-slate-900 mb-1 flex items-center gap-2">
+          <span>📈</span>
+          <span>Масъуллар Кесимида Қарздорлик ва Ижро Хавфи Баҳоси</span>
+        </h3>
+        <p class="text-xs text-slate-400 mb-5">Қизил соҳа — муддати ўтиб қарздорликка тушган топшириқлар улуши</p>
+
+        <div class="space-y-4" id="executorsProgressBarContainer">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: ALL TASKS REGISTRY -->
+    <div id="tab-all-tasks" class="hidden space-y-6">
+      
+      <!-- Filter Bar -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">Барча Топшириқларнинг Тўлиқ Реестри</h2>
+          <p class="text-xs text-slate-500">Ҳар бир топшириқнинг матни, ҳужжат рақами, дедлайни ва кунлик ижро қайдлари</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Category Filter -->
+          <select id="filterDocCategory" onchange="applyTaskFilters()" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium">
+            <option value="all">Ҳужжат тури: Барчаси</option>
+            <option value="Юқори турувчи ташкилот ҳужжатлари">Юқори турувчи (Президент, ВМ)</option>
+            <option value="Ички ҳужжатлар">Ички ҳужжатлар (Баён, Чора-тадбир)</option>
+            <option value="ХДФУ хатлар">ХДФУ хатлар</option>
+          </select>
+
+          <!-- Status Filter -->
+          <select id="filterStatus" onchange="applyTaskFilters()" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium">
+            <option value="all">Ҳолати: Барчаси</option>
+            <option value="overdue">🔴 Фақат қарздорлик (Муддати ўтган)</option>
+            <option value="upcoming">🟡 Муддати келаётган</option>
+            <option value="done">🟢 Бажарилганлар</option>
+          </select>
+
+          <!-- Executor Filter -->
+          <select id="filterExecutor" onchange="applyTaskFilters()" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium">
+            <option value="all">Масъул: Барча ижрочилар</option>
+            <option value="С.Умаров">С.Умаров (19 та)</option>
+            <option value="С.Устабабаев">С.Устабабаев (12 та)</option>
+            <option value="Н.Хакимов">Н.Хакимов (9 та)</option>
+            <option value="Ф.Ачилов">Ф.Ачилов (8 та)</option>
+            <option value="У.Ахмедов">У.Ахмедов (4 та)</option>
+            <option value="Н.Қутбиддинова">Н.Қутбиддинова (3 та)</option>
+            <option value="Ш.Хаитов">Ш.Хаитов (2 та)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Task Cards Container -->
+      <div class="space-y-3" id="tasksListContainer">
+        <!-- Will be rendered via JS -->
+      </div>
+
+    </div>
+
+    <!-- TAB 3: EXECUTORS INDIVIDUAL VIEW -->
+    <div id="tab-executors-view" class="hidden space-y-6">
+      
+      <!-- Executor Selection Header -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2 py-0.5 rounded">Шахсий Кабинет</span>
+          <h2 class="text-base font-extrabold text-slate-900 mt-1" id="execViewTitle">Ижрочининг Кунлик Иш Варақаси</h2>
+          <p class="text-xs text-slate-500" id="execViewSubtitle">Ижрочи кунлик бажарилган ишларни киритиб, ҳолатни янгилаб бориши мумкин</p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <label class="text-xs font-semibold text-slate-600">Ижрочини танланг:</label>
+          <select id="currentExecutorSelect" onchange="handleExecutorChange(this.value)" class="px-3 py-2 text-xs bg-blue-50 border border-blue-200 rounded-xl text-blue-900 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="С.Умаров (19 та)">С.Умаров (19 та) - Лойиҳалар бўлими</option>
+            <option value="С.Устабабаев (12 та)">С.Устабабаев (12 та) - Аъзолар билан ишлаш</option>
+            <option value="Н.Хакимов (9 та)">Н.Хакимов (9 та) - Ҳалқаро ҳамкорлик</option>
+            <option value="Ф.Ачилов (8 та)">Ф.Ачилов (8 та) - Тармоқ таҳлили ва медиа</option>
+            <option value="У.Ахмедов (4 та)">У.Ахмедов (4 та) - Маркетинг ва тижорат</option>
+            <option value="Н.Қутбиддинова (3 та)">Н.Қутбиддинова (3 та) - Матбуот котиби</option>
+            <option value="Ш.Хаитов (2 та)">Ш.Хаитов (2 та) - Бош ҳисобчи</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Executor Personal Stats Mini Bar -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="execPersonalStatRow">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Executor Task Cards with Daily Reporting Form -->
+      <div class="space-y-4" id="executorIndividualTasksContainer">
+        <!-- Rendered by JS -->
+      </div>
+
+    </div>
+
+    <!-- TAB 4: DAILY LOG & CHANGES -->
+    <div id="tab-daily-log" class="hidden space-y-6">
+      
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">Кунлик Ижро Кундалиги & Ўзгаришлар Хроникаси</h2>
+          <p class="text-xs text-slate-500">Раҳбар ва ижрочилар томонидан киритилган барча кунлик ҳисоботлар ва ўзгаришлар тарихи</p>
+        </div>
+        <button onclick="clearDailyAuditLog()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold">
+          Журнални тозалаш
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-6">
+        <div class="space-y-3" id="dailyAuditLogList">
+          <!-- Log items rendered here -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- MODAL: KUNLIK HISOBOT VA STATUS YANGILASH -->
+  <div id="dailyReportModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200" id="modalTaskIdBadge">TASK-001</span>
+          <h3 class="text-sm font-bold text-slate-900 mt-1">Кунлик Ижро Ҳисоботи ва Ҳолатни Янгилаш</h3>
+        </div>
+        <button onclick="closeDailyModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs space-y-1.5">
+        <div class="text-slate-500 text-[11px]">Топшириқ мазмуни:</div>
+        <div class="font-medium text-slate-800 leading-relaxed" id="modalTaskTextPreview"></div>
+        <div class="flex items-center justify-between text-[11px] pt-1 text-slate-500">
+          <span>Муддат: <strong id="modalTaskDeadlinePreview" class="text-slate-800"></strong></span>
+          <span>Масъул: <strong id="modalTaskExecutorPreview" class="text-slate-800"></strong></span>
+        </div>
+      </div>
+
+      <form onsubmit="submitDailyReport(event)" class="space-y-3 text-xs">
+        <input type="hidden" id="modalTaskId">
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Ижро ҳолати танлови:</label>
+          <select id="modalStatusSelect" class="w-full px-3 py-2 border border-slate-300 rounded-xl bg-white font-medium focus:ring-2 focus:ring-blue-500">
+            <option value="Бажарилмаган">🔴 Бажарилмаган (Қарздорликда)</option>
+            <option value="Жараёнда">⏳ Жараёнда (Бугунги босқич бажарилмоқда)</option>
+            <option value="Муддат сўралган">⚠️ Муддатини узайтириш бўйича хат юборилган</option>
+            <option value="Келишувда">📝 edo.ijro.uz тизимида келишувга чиқарилди</option>
+            <option value="Бажарилди">✅ Тўлиқ бажарилди ва ёпилди</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Бугунги кунлик ҳисобот / изоҳ (Раҳбар кўрадиган матн):</label>
+          <textarea id="modalDailyNoteText" rows="3" required placeholder="Бугун ушбу топшириқ бўйича айнан қандай амалий иш қилинди ёки тўсиқлар нимада?"
+            class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeDailyModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold">Бекор қилиш</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-xs">Сақлаш ва Раҳбарга юбориш</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toastAlert" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold flex items-center gap-2 transform translate-y-24 opacity-0 transition-all duration-300 z-50">
+    <span id="toastIcon">✅</span>
+    <span id="toastMsg">Маълумот сақланди!</span>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const RAW_DATA = {"org":"Ўзбекистон Миллий медиа ассоциацияси (ЎзММА)","system":"edo.ijro.uz","report_date":"18.11.2026","executors":[{"id":"exec_1","num":1,"role":"Лойиҳалар билан ишлаш бўлим бошлиғи","person":"УМАРОВ Саидаҳмад","full_title":"Лойиҳалар билан ишлаш бўлим бошлиғи \nУМАРОВ Саидаҳмад","pres_total":6,"pa_total":0,"vm_total":2,"internal_total":11,"total_tasks":19},{"id":"exec_2","num":2,"role":"Аъзолар билан ишлаш бўлим бошлиғи","person":"УСТАБАБАЕВ Санджар","full_title":"Аъзолар билан ишлаш бўлим бошлиғи \nУСТАБАБАЕВ Санджар","pres_total":0,"pa_total":0,"vm_total":7,"internal_total":5,"total_tasks":12},{"id":"exec_3","num":3,"role":"Ҳалқаро ҳамкорлик бўлим бошлиғи","person":"ХАКИМОВ Низом","full_title":"Ҳалқаро ҳамкорлик бўлим бошлиғи \nХАКИМОВ Низом","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":9,"total_tasks":9},{"id":"exec_4","num":4,"role":"Тармоқ таҳлили ва медиа мониторинги бўлим бошлиғи","person":"АЧИЛОВ Фаёз","full_title":"Тармоқ таҳлили ва медиа мониторинги бўлим бошлиғи \nАЧИЛОВ Фаёз","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":8,"total_tasks":8},{"id":"exec_5","num":5,"role":"Маркетинг ва тижорий ҳамкорликни ривожлантириш бўлим бошлиғи","person":"АХМЕДОВ Улуғбек","full_title":"Маркетинг ва тижорий ҳамкорликни ривожлантириш бўлим бошлиғи \nАХМЕДОВ Улуғбек","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":4,"total_tasks":4},{"id":"exec_6","num":6,"role":"Матбуот котиби","person":"ҚУТБИДДИНОВА Нодира","full_title":"Матбуот котиби \nҚУТБИДДИНОВА Нодира","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":3,"total_tasks":3},{"id":"exec_7","num":7,"role":"Бош ҳисобчи","person":"ХАИТОВ Шохруз","full_title":"Бош ҳисобчи \nХАИТОВ Шохруз","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":2,"total_tasks":2}],"tasks":[{"id":"TASK-001","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Фармойиш","doc_info":"Ф-63 06.11.2026","task_text":"Ф-63 1-илова 12-банд: Оммавий ахборот воситаларида янги таҳрирдаги Ўзбекистон Республикаси Конституциясининг мазмун-моҳиятига оид медиатадбирларни (алоҳида медиарежа асосида махсус кўрсатув, пресс-клуб, ток-шоу, интервью, репортаж, видеоролик, радиоэшиттириш, мақола, викторина ва б.) ўтказиш. Давлат телеканаллари белгиси ёнида Конституция байрами белгисини жойлаштириш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-002","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Фармойиш","doc_info":"Ф-63 06.11.2026","task_text":"Ф-63 1-илова 16-банд: Оммавий ахборот воситаларида «Конституция – суверен давлат кафолати», «Конституция – демократик давлат кафолати», «Конституция – ҳуқуқий давлат кафолати», «Конституция – ижтимоий давлат кафолати», «Конституция – дунёвий давлат кафолати» мавзуларида туркум махсус кўрсатув, пресс-клуб, ток-шоу, интервью, репортаж, видеоролик ва радиоэшиттиришларни тайёрлаш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-003","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Президент Администрацияси","doc_info":"10-3030 10.11.2026","task_text":"10-3030 11.1-банд: \"Ўзбекистон зиёлилари кенгаши\"ни ташкил этиш ва ўтказиш бўйича ишлаб чиқилган чора-тадбирлар режаси юзасидан Кенгаш ўтказиладиган жойни (бино) белгилаш ҳамда инфратузилмасини тайёрлаш.","deadline":"10.11.2026","days_diff":-8,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-004","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Президент Администрацияси","doc_info":"10-3030 10.11.2026","task_text":"10-3030 11.2-банд: \"Ўзбекистон зиёлилари кенгаши\"ни ташкил этиш ва ўтказиш бўйича ишлаб чиқилган чора-тадбирлар режаси юзасидан Кенгаш ўтказиладиган жойни (бино) белгилаш ҳамда инфратузилмасини тайёрлаш. Бинони сифатли овоз кучайтириш, замонавий ЛEД экранлар ва интернет алоқаси (хорижий ватандошлар билан видеоконференц алоқа учун ҳам) билан жиҳозлаш.","deadline":"10.11.2027","days_diff":357,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-005","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Президент Администрацияси","doc_info":"10-3030 10.11.2026","task_text":"10-3030 11.3-банд: \"Ўзбекистон зиёлилари кенгаши\"ни ташкил этиш ва ўтказиш бўйича ишлаб чиқилган чора-тадбирлар режаси юзасидан Кенгаш ўтказиладиган жойни (бино) белгилаш ҳамда инфратузилмасини тайёрлаш. Шуъба хоналарини (ҳар бири 70-100 ўринли) микрофонлар, проектор ёки экран, котиб учун компьютер, шуъба номи ёзилган кўрсаткич ва бошқа зарур жиҳозлар билан таъминлаш.","deadline":"10.11.2028","days_diff":723,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-006","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Президент Администрацияси","doc_info":"10-3030 10.11.2026","task_text":"10-3030 11.4-банд: \"Ўзбекистон зиёлилари кенгаши\"ни ташкил этиш ва ўтказиш бўйича ишлаб чиқилган чора-тадбирлар режаси юзасидан Кенгаш ўтказиладиган жойни (бино) белгилаш ҳамда инфратузилмасини тайёрлаш. Бинони функционал ҳудудларга ажратиш ва йўналиш кўрсаткичлари билан белгилаш.","deadline":"10.11.2029","days_diff":1088,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-007","sheet_source":"С.Умаров (19 та)","cat":"ХДФУ хатлар","doc_type":"Вазирлар Маҳкамаси","doc_info":"24-3079 23.10.2026","task_text":"24/1-3550-хдфу сон «Лотин ёзувига асосланган ўзбек алифбосини жорий этиш тўғрисида»ги Қонуннинг мазмун-моҳиятини кенг ёритиш бўйича тасдиқлаган медиа-режа ижро учун қабул қилинсин (Ўзбекистон Республикаси Президенти Администрациясининг 23.10.2026 й., 24-3079хдфу-сон хати). 2. Медиа-режада белгиланган вазифаларнинг ўз вақтида ва сифатли бажарилиши таъминласин ҳамда амалга оширилган ишлар бўйича ҳар ой якунида Ўзбекистон Республикаси Президенти Администрациясига ахборот киритиб борилсин. Ғ.Мирзаев 2026 йил 27-октабр №24/1-3550","deadline":"30.11.2026","days_diff":12,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-008","sheet_source":"С.Умаров (19 та)","cat":"ХДФУ хатлар","doc_type":"Вазирлар Маҳкамаси","doc_info":"24-3079 23.10.2026","task_text":"24-3079-хдфу-сон \"Лотин ёзувига асосланган ўзбек алифбосини жорий этиш тўғрисида\"ги Қонуннинг мазмун-моҳияти ва аҳамияти, янги алифбонинг афзалликлари ҳамда унга босқичма-босқич ўтиш тартибини кенг ёритиш бўйича медиарежа тасдиқланди. Вазирлар Маҳкамаси, Таълим ва илм-фан вазирлиги, Фанлар академияси ҳамда бошқа давлат органлари ва ташкилотларга мазкур медиарежа ўз вақтида ва сифатли бажарилишини алоҳида назоратга олиш, Оммавий коммуникациялар масалалари бўйича марказга натижалари юзасидан Коммуникациялар департаментига умумий ҳисобот киритиш топширилади. Коммуникациялар департаменти бошлиғи - Президент матбуот котиби Ш. Асадов","deadline":"30.11.2026","days_diff":12,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-009","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"4.1-банд: Ассоциациянинг устувор йўналишлари бўйича лойиҳа портфелини шакллантириш.","deadline":"25.09.2026","days_diff":-54,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-010","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"5-банд: Ижтимоий-маърифий йўналишдаги медиа лойиҳаларни Ассоциацияга аъзо теле ва радиоканаллар орқали буюртма асосида ишлаб чиқиш ва молиялаштириш механизмини жорий этиш","deadline":"25.09.2026","days_diff":-54,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-011","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"17.3-банд: Клуб фаолиятини йўлга қўйиш ва аъзолари билан учрашув ташкил қилиш.","deadline":"30.09.2026","days_diff":-49,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-012","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"8.1-банд: уч кун муддатда ўзбек тили луғати ўзгараётганлиги муносабати билан аъзо ташкилотларнинг муҳаррирлари учун семинар ташкил этиш бўйича таклифини тақдим этиш;","deadline":"21.10.2026","days_diff":-28,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-013","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"8.2-банд: ўзгараётганлиги муносабати билан аъзо ташкилотларнинг муҳаррирлари учун семинар ташкил этиш бўйича таклифини тақдим этиш;","deadline":"21.10.2026","days_diff":-28,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-014","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-015","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"4.2-банд: Миллий ва халқаро грантларда иштирок этиш учун лойиҳалар тайёрлаш амалиётини жорий этиш.","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Хакимов Низом \nУмаров Саидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-016","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-017","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"15.1-банд: Лойиҳа концепциясини ишлаб чиқиш, номзодлар рўйхатини шакллантириш, комиссия таркиби ва баҳолаш мезонларини ишлаб чиқиш.","deadline":"05.11.2026","days_diff":-13,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-018","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"15-банд: «Ренессанс» миллий мукофоти лойиҳасини ташкил этиш","deadline":"05.11.2026","days_diff":-13,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-019","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"8.5-банд: 2026 йил 6 ноябрь кунига қадар ҳамкорлар билан амалга ошириладиган камида 5 та янги креатив лойиҳа ғояси, қиймати ва муддати билан тақдим этиш;","deadline":"06.11.2026","days_diff":-12,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-020","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2026","task_text":"ВМҚ-202 Илова 41-банд: Ижтимоий ҳимояга муҳтож аҳоли қатламлари, шу жумладан, ёшлар, хотин-қизлар, ногиронлиги бўлган шахслар, кам таъминланган оилалар ва ишсиз фуқаролар учун қонунчиликда назарда тутилган ижтимоий имтиёзлар, моддий ёрдам турлари, нафақалар, ишсизликдан ҳимояланиш механизмлари, вақтинчалик иш билан таъминлаш имкониятлари ҳамда ижтимоий ёрдам олиш тартиби ҳақида аҳолининг хабардорлигини ошириш мақсадида комплекс медиа маҳсулотлар тайёрлаш ва кенг оммага етказиш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-021","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2027","task_text":"ВМҚ-202 Илова 44-банд: Хорижий давлатларда меҳнат қилиш истагида бўлган фуқаролар, айниқса ёшлар ўртасида қонуний меҳнат миграциясининг ҳуқуқий асослари, хорижда вақтинча меҳнат фаолиятини амалга оширишнинг белгиланган тартиби, фаолият юритиш учун рухсатномалар ва визаларни расмийлаштириш бўйича оммавий ахборот воситаларида ва ижтимоий тармоқларда кенг тушунтириш ишларини олиб бориш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-022","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2028","task_text":"ВМҚ-202 Илова 45-банд: Фуқаролар ўртасида юзага келадиган ўзаро муаммоларни фақат қонунда белгиланган ҳуқуқий воситалар орқали ҳал этиш, низоларни зўравонлик, таҳдид, босим ёки ўзбошимчалик йўли билан эмас, балки маданиятли мулоқот ва қонуний тартибда ҳал қилиш маданиятини тарғиб этишга қаратилган видеороликлар, инфографикалар ва ижтимоий тармоқлар учун визуал контентларни тайёрлаш ҳамда оммавий ахборот воситалари ва ижтимоий тармоқларда мунтазам тарқатиб бориш. Мазкур медиа маҳсулотларда ўзгаларнинг шаъни, қадр-қиммати, шахсий ҳаёти, мулки ва эркинликларига ҳурмат билан муносабатда бўлиш, шунингдек ҳуқуқбузарлик ва ўзбошимчалик оқибатлари, уларнинг маъмурий ёки жиноий жавобгарликка сабаб бўлиши ҳақида фуқароларга содда ва тушунарли тарзда маълумот бериш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-023","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2029","task_text":"ВМҚ-202 Илова 46-банд: Ташқи меҳнат миграцияси соҳасида учрайдиган ҳуқуқбузарликлар, жумладан, одам савдоси, фирибгарлик ҳолатлари ва мажбурий меҳнатга жалб этилиш каби хавф-хатарлар тўғрисида аҳолига, айниқса ёшларга огоҳлантирувчи ва тушунтирувчи ахборотлар тақдим этиш, уларда ҳуқуқий онг, ҳушёрлик ва хавфсизлик маданиятини шакллантиришга қаратилган тарғибот материалларини тайёрлаш ва манзилли тарқатиш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-024","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2030","task_text":"ВМҚ-202 Илова 63-банд: Тўйлар, оилавий маросимлар ва бошқа оммавий тадбирларни ўтказишда исрофгарчиликка йўл қўймаслик, миллий қадрият ва урф-одатларни асраб-авайлаган ҳолда соддалик ва тежамкорликни тарғиб этиш, ёшлар онгида масъулиятли истеъмол маданиятини шакллантиришга қаратилган телекўрсатувлар ва ижтимоий видеороликлар тайёрлаш. Мазкур медиа маҳсулотларда оилавий ҳаётга оид анъаналар, маросимларда меъёр ва одобни сақлаш, ортиқча дабдаба ва рақобатга берилмасликнинг ижтимоий аҳамияти ёритиш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-025","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Баёни","doc_info":"ВМ 21/26-218 29.10.2026","task_text":"ВМ 21/26-218 14-банд: Ўзбекистон Миллий телерадиокомпанияси (Жўрабоев), Ўзбекистон Миллий ахборот агентлиги (Кўчимов), Ўзбекистон Миллий медиа ассоциацияси (Тожиев)га республикадаги хусусий телекоммуникация тармоқлари билан биргаликда ис газидан заҳарланиш, чақнаш ва ёнғинларнинг олдини олиш, уларнинг аянчли оқибатлари тўғрисидаги таъсирчан материаллар тайёрлаб, кенг ёритиш ва оммабоп вақтларда мунтазам равишда эфирга узатиб бориш тавсия этилсин. Бунда аҳоли хонадонларида фойдаланиладиган иситиш воситаларининг созлиги ва дудбуронларни тозалаш истеъмолчининг мажбурияти эканига урғу бериш, бу ишларда аудиторияси катта бўлган блогерларнинг ҳамда хусусий телеканаллар имкониятларидан ҳам унумли фойдаланиш назарда тутилсин.","deadline":"28.11.2026","days_diff":10,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-026","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Баёни","doc_info":"ВМ 22/26-196 30.09.2026","task_text":"ВМ-22/26-196 26-банд: Ўзбекистон Миллий телерадиокомпанияси (Жўрабоев), Ўзбекистон Миллий ахборот агентлиги (Кўчимов), Оммавий ахборот воситалари учун контент тайёрлаш маркази (Аҳмедов) «Дунё» ахборот агентлиги (Қўчқорова) ҳамда Ўзбекистон Миллий медиа ассоциацияси (Тожиев) Ярмаркага тайёргарлик кўриш ва уни ўтказиш жараёнларини маҳаллий ва хорижий оммавий ахборот воситаларида кенг ёритиш чораларини кўрсин.","deadline":"30.11.2026","days_diff":12,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-027","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"8-банд: Миллий телерадиокомпания (МТРК) ва Кинематография агентлиги билан ҳамколикда улардаги мавжуд миллий фильмлар, сериаллар ҳамда бошқа ижтимоий-маданий дастурларни Ассоциациямиз аъзоларига етказиб бериш орқали эфирга узатиш тизимини йўлга қўйиш","deadline":"25.08.2026","days_diff":-85,"is_overdue":true,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-028","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"8.1-банд: 1. Ҳамкорлик доирасида устувор йўналишлар, йиллик мавзули режа (контент режаси) ишлаб чиқиш.","deadline":"25.08.2026","days_diff":-85,"is_overdue":true,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-029","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-030","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-031","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"4.1-банд: рўйхат асосида потенциал аъзолар ва ҳар бири билан учрашув жадвалини ишлаб чиқиш","deadline":"06.11.2026","days_diff":-12,"is_overdue":true,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-032","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"16.2-банд: 1. «Ўзбекистон–Туркия медиа форуми»ни ўтказиш концепцияси ва ташкилий дастурини ишлаб чиқиш.","deadline":"20.08.2026","days_diff":-90,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-033","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"19-банд: Ациа-Паcифиc Броадcастинг Унион (АБ-У) ва Ациа-Паcифиc Институте фор Броадcастинг Девелопмент (АИБД) билан ҳамкорликни фаоллаштириш","deadline":"30.09.2026","days_diff":-49,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-034","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"16.3-банд: Ўзбекистон ва Туркиянинг етакчи ОАВлари ўртасида тарихий сериаллар, маданий-маърифий кўрсатувлар ҳамда бошқа медиа маҳсулотлар алмашинуви механизмларини йўлга қўйиш бўйича амалий чораларни кўриш.","deadline":"05.10.2026","days_diff":-44,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-035","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"7.1-банд: халқаро ташкилотлар билан имзоланган ҳамкорлик меморандумлари ижросини таҳлил қилсин ҳамда амалга оширилиши зарур бўлган вазифалар тўғрисида ахборот киритиш;","deadline":"23.10.2026","days_diff":-26,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-036","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-037","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"21-банд: Ўзбекистонда йиллик халқаро медиа ва технологиялар форумини ташкил этиш бўйича ташкилий асос яратиш","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-038","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"4.2-банд: Миллий ва халқаро грантларда иштирок этиш учун лойиҳалар тайёрлаш амалиётини жорий этиш.","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Хакимов Низом \nУмаров Саидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-039","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-040","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"7-банд: бир ой муддатда Ассоциациянинг 2027 йилда халқаро ташкилотлар билан алоқаларини ривожлантириш ва хорижий грантларни жалб этиш мақсадида лойиҳалар концепциясини ишлаб чиқиш;","deadline":"16.11.2026","days_diff":-2,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-041","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"12.2-банд: 2. Янгилик контентини автоматлаштирилган тарзда йиғиш, таҳлил қилиш, таржима қилиш, модерация қилиш ва веб-кабинетлар орқали етказиб бериш платформасини яратиш.","deadline":"25.08.2026","days_diff":-85,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-042","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"12-банд: «Нуқтаи Назар» сунъий интеллект платформасини ишлаб чиқиш","deadline":"25.08.2026","days_diff":-85,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-043","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"7-банд: Миллий медиа ассоциацияси томонидан аъзо ҳудудий телеканаллар манфаатларини кўзлаб муаллифлик ҳуқуқи эгалари билан марказлашган музокаралар олиб бориш ҳамда коллектив лицензиялаш (умумий лицензия) тизимини жорий этиш.","deadline":"27.08.2026","days_diff":-83,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-044","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"7.1-банд: 1. Ҳудудий телеканалларнинг муаллифлик ҳуқуқи объектларидан фойдаланиш эҳтиёжларини ўрганиш ҳамда лицензиялашни талаб этувчи контент турлари бўйича таҳлил ўтказиш.","deadline":"27.08.2026","days_diff":-83,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-045","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"7.2-банд: Ассоциацияси томонидан ҳудудий телеканаллар манфаатларини ифодаловчи ваколатли вакил сифатида маҳаллий ва хорижий муаллифлик ҳуқуқи эгалари ҳамда уларнинг вакиллари билан марказлашган музокаралар олиб бориш.","deadline":"23.09.2026","days_diff":-56,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-046","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"12.3-банд: 3. Платформани синовдан ўтказиш ва аъзо медиа субъектлар фаолиятига босқичма-босқич жорий этиш.","deadline":"25.09.2026","days_diff":-54,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-047","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-048","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-049","sheet_source":"У.Ахмедов (4 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-050","sheet_source":"У.Ахмедов (4 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-03/5 16.11.2026","task_text":"10-банд: Ассоциациянинг янги таҳрирдаги аъзолик шартномаси концепциясини кўриб чиқсин ва уни такомиллаштириш бўйича аниқ таклифларни тақдим этсин.","deadline":"30.10.2026","days_diff":-19,"is_overdue":true,"executor":"Мирзаев Бекзод","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-051","sheet_source":"У.Ахмедов (4 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-052","sheet_source":"У.Ахмедов (4 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"10.1-банд: Ассоциация ҳақида қисқа маълумот, аъзоларнинг умумий қамрови, ҳомий ташкилотларга фойдаси, ҳамкорлик пакетлари, флаер ва тақдимотни тайёрлаш;","deadline":"13.11.2026","days_diff":-5,"is_overdue":true,"executor":"Ахмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-053","sheet_source":"Н.Қутбиддинова (3 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"10-банд: \"Матбуот котиблари клуби\"ни ташкил этиш","deadline":"25.09.2026","days_diff":-54,"is_overdue":true,"executor":"Қутбиддинова Нодира","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-054","sheet_source":"Н.Қутбиддинова (3 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-055","sheet_source":"Н.Қутбиддинова (3 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-056","sheet_source":"Ш.Хаитов (2 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-057","sheet_source":"Ш.Хаитов (2 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"}]};
+
+    const STORAGE_KEY = 'ozmma_ijro_dashboard_state_v1';
+    let appState = {
+      role: 'boss',
+      currentTab: 'statistika',
+      selectedExecutor: 'С.Умаров (19 та)',
+      tasks: JSON.parse(JSON.stringify(RAW_DATA.tasks)),
+      auditLog: []
+    };
+
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.tasks && parsed.tasks.length === RAW_DATA.tasks.length) {
+          appState.tasks = parsed.tasks;
+          appState.auditLog = parsed.auditLog || [];
+        }
+      }
+    } catch(e) { console.error('LocalStorage error:', e); }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch(e) {}
+    }
+
+    function switchRole(role) {
+      appState.role = role;
+      const btnBoss = document.getElementById('roleBtnBoss');
+      const btnExec = document.getElementById('roleBtnExec');
+      if (role === 'boss') {
+        btnBoss.className = 'px-3 py-1.5 rounded-lg transition bg-white text-blue-800 shadow-xs flex items-center gap-1.5';
+        btnExec.className = 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5';
+        switchTab('statistika');
+        showToast('Раҳбар нигоҳи режими фаоллаштирилди', '👑');
+      } else {
+        btnExec.className = 'px-3 py-1.5 rounded-lg transition bg-white text-blue-800 shadow-xs flex items-center gap-1.5';
+        btnBoss.className = 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5';
+        switchTab('executors-view');
+        showToast('Ижрочининг шахсий иш варақаси очилди', '👤');
+      }
+    }
+
+    function switchTab(tabName) {
+      appState.currentTab = tabName;
+      const tabs = ['statistika', 'all-tasks', 'executors-view', 'daily-log'];
+      tabs.forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if (el) el.classList.add('hidden');
+      });
+      const activeEl = document.getElementById('tab-' + tabName);
+      if (activeEl) activeEl.classList.remove('hidden');
+
+      const navBtns = document.querySelectorAll('.tab-nav');
+      navBtns.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(tabName)) {
+          btn.classList.add('active');
+          btn.classList.remove('text-slate-600');
+        } else {
+          btn.classList.remove('active');
+          btn.classList.add('text-slate-600');
+        }
+      });
+
+      renderCurrentTab();
+    }
+
+    function renderCurrentTab() {
+      recalculateStats();
+      if (appState.currentTab === 'statistika') renderStatistikaTab();
+      if (appState.currentTab === 'all-tasks') applyTaskFilters();
+      if (appState.currentTab === 'executors-view') renderExecutorIndividualTab();
+      if (appState.currentTab === 'daily-log') renderDailyLogTab();
+    }
+
+    let overdueCount = 0;
+    let upcomingCount = 0;
+    let doneCount = 0;
+
+    function recalculateStats() {
+      overdueCount = 0;
+      upcomingCount = 0;
+      doneCount = 0;
+
+      appState.tasks.forEach(t => {
+        if (t.status === 'Бажарилди') {
+          doneCount++;
+        } else if (t.is_overdue) {
+          overdueCount++;
+        } else {
+          upcomingCount++;
+        }
+      });
+
+      document.getElementById('statTotalCount').innerText = appState.tasks.length;
+      document.getElementById('statOverdueCount').innerText = overdueCount;
+      document.getElementById('statUpcomingCount').innerText = upcomingCount;
+      document.getElementById('statDoneCount').innerText = doneCount;
+      document.getElementById('badgeOverdueTasks').innerText = overdueCount + ' қарздорлик';
+      document.getElementById('statDailyDelta').innerText = '+' + doneCount + ' кунлик ўзгариш';
+      document.getElementById('badgeDailyChanges').innerText = '+' + appState.auditLog.length + ' ўзгариш';
+    }
+
+    function renderStatistikaTab() {
+      const tbody = document.getElementById('executorsTableBody');
+      tbody.innerHTML = '';
+
+      RAW_DATA.executors.forEach((ex, idx) => {
+        const exSheet = ex.full_title.includes('УМАРОВ') ? 'С.Умаров (19 та)' :
+                        ex.full_title.includes('УСТАБАБАЕВ') ? 'С.Устабабаев (12 та)' :
+                        ex.full_title.includes('ХАКИМОВ') ? 'Н.Хакимов (9 та)' :
+                        ex.full_title.includes('АЧИЛОВ') ? 'Ф.Ачилов (8 та)' :
+                        ex.full_title.includes('АХМЕДОВ') ? 'У.Ахмедов (4 та)' :
+                        ex.full_title.includes('ҚУТБИДДИНОВА') ? 'Н.Қутбиддинова (3 та)' : 'Ш.Хаитов (2 та)';
+
+        const exTasks = appState.tasks.filter(t => t.sheet_source === exSheet);
+        const exOverdue = exTasks.filter(t => t.is_overdue && t.status !== 'Бажарилди').length;
+        const exDone = exTasks.filter(t => t.status === 'Бажарилди').length;
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
+
+        tr.innerHTML = `
+          <td class="py-3 px-4 text-center font-bold text-slate-500">${idx + 1}</td>
+          <td class="py-3 px-4">
+            <div class="font-bold text-slate-900">${ex.person}</div>
+            <div class="text-[11px] text-slate-500">${ex.role}</div>
+          </td>
+          <td class="py-3 px-3 text-center font-semibold">${ex.pres_total}</td>
+          <td class="py-3 px-3 text-center font-semibold">${ex.vm_total}</td>
+          <td class="py-3 px-3 text-center font-semibold">${ex.internal_total}</td>
+          <td class="py-3 px-3 text-center font-extrabold text-slate-900 bg-slate-50/70">${exTasks.length}</td>
+          <td class="py-3 px-3 text-center font-extrabold text-rose-600 bg-rose-50/50">
+            <span class="px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 text-xs">${exOverdue} та</span>
+          </td>
+          <td class="py-3 px-3 text-center font-bold text-blue-700">
+            ${exDone > 0 ? '+' + exDone : '0'}
+          </td>
+          <td class="py-3 px-4 text-center">
+            <button onclick="jumpToExecutor('${exSheet}')" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-xs font-semibold transition border border-blue-200">
+              Кўриш &rarr;
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const barContainer = document.getElementById('executorsProgressBarContainer');
+      barContainer.innerHTML = '';
+      RAW_DATA.executors.forEach(ex => {
+        const exSheet = ex.full_title.includes('УМАРОВ') ? 'С.Умаров (19 та)' :
+                        ex.full_title.includes('УСТАБАБАЕВ') ? 'С.Устабабаев (12 та)' :
+                        ex.full_title.includes('ХАКИМОВ') ? 'Н.Хакимов (9 та)' :
+                        ex.full_title.includes('АЧИЛОВ') ? 'Ф.Ачилов (8 та)' :
+                        ex.full_title.includes('АХМЕДОВ') ? 'У.Ахмедов (4 та)' :
+                        ex.full_title.includes('ҚУТБИДДИНОВА') ? 'Н.Қутбиддинова (3 та)' : 'Ш.Хаитов (2 та)';
+
+        const exTasks = appState.tasks.filter(t => t.sheet_source === exSheet);
+        const exOverdue = exTasks.filter(t => t.is_overdue && t.status !== 'Бажарилди').length;
+        const overduePct = Math.round((exOverdue / exTasks.length) * 100);
+
+        const row = document.createElement('div');
+        row.innerHTML = `
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="font-bold text-slate-800">${ex.person} <span class="text-slate-400 font-normal">(${ex.role})</span></span>
+            <span class="font-extrabold ${overduePct > 50 ? 'text-rose-600' : 'text-amber-600'}">${exOverdue} та қарздорлик (${overduePct}%)</span>
+          </div>
+          <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden flex">
+            <div class="bg-rose-500 h-2.5" style="width: ${overduePct}%"></div>
+            <div class="bg-amber-400 h-2.5" style="width: ${100 - overduePct}%"></div>
+          </div>
+        `;
+        barContainer.appendChild(row);
+      });
+    }
+
+    function jumpToExecutor(exSheet) {
+      document.getElementById('currentExecutorSelect').value = exSheet;
+      appState.selectedExecutor = exSheet;
+      switchTab('executors-view');
+    }
+
+    function applyTaskFilters() {
+      const cat = document.getElementById('filterDocCategory').value;
+      const status = document.getElementById('filterStatus').value;
+      const exec = document.getElementById('filterExecutor').value;
+      const search = (document.getElementById('quickSearch').value || '').toLowerCase();
+
+      const container = document.getElementById('tasksListContainer');
+      container.innerHTML = '';
+
+      const filtered = appState.tasks.filter(t => {
+        if (cat !== 'all' && t.cat !== cat) return false;
+        if (status === 'overdue' && (!t.is_overdue || t.status === 'Бажарилди')) return false;
+        if (status === 'upcoming' && (t.is_overdue || t.status === 'Бажарилди')) return false;
+        if (status === 'done' && t.status !== 'Бажарилди') return false;
+        if (exec !== 'all' && !t.sheet_source.includes(exec) && !t.executor.includes(exec)) return false;
+        if (search) {
+          const hay = (t.task_text + ' ' + t.doc_info + ' ' + t.doc_type + ' ' + t.executor).toLowerCase();
+          if (!hay.includes(search)) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="bg-white p-8 rounded-2xl text-center text-slate-400 text-xs border border-slate-200">Филтрга мос топшириқлар топилмади.</div>`;
+        return;
+      }
+
+      filtered.forEach(t => {
+        const isDone = t.status === 'Бажарилди';
+        const isOverdue = t.is_overdue && !isDone;
+
+        let badgeClass = 'badge-upcoming';
+        let badgeText = '⏳ Муддати бор';
+        if (isDone) {
+          badgeClass = 'badge-done';
+          badgeText = '✅ Бажарилди';
+        } else if (isOverdue) {
+          badgeClass = 'badge-overdue';
+          badgeText = `🚨 Муддати ўтган (${Math.abs(t.days_diff)} кун)`;
+        }
+
+        const card = document.createElement('div');
+        card.className = `bg-white p-4 rounded-2xl border ${isOverdue ? 'border-rose-300 shadow-rose-100/50' : 'border-slate-200'} shadow-xs hover:shadow-md transition space-y-3`;
+
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-extrabold px-2 py-0.5 rounded bg-slate-100 text-slate-700">${t.id}</span>
+              <span class="text-xs font-bold text-slate-900">${t.doc_type || 'Ҳужжат'}</span>
+              <span class="text-xs text-blue-700 font-semibold">${t.doc_info.replace(/\n/g, ' ')}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${badgeClass}">${badgeText}</span>
+              <span class="text-xs font-semibold text-slate-500">Муддат: <strong class="${isOverdue ? 'text-rose-600' : 'text-slate-800'}">${t.deadline}</strong></span>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-800 leading-relaxed font-normal">
+            ${t.task_text}
+          </p>
+
+          <div class="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2 text-slate-500">
+              <span>Масъул:</span>
+              <span class="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">${t.executor.replace(/\n/g, ', ')}</span>
+              <span class="text-[11px] text-slate-400">(${t.sheet_source})</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              ${t.daily_note ? `<span class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Изоҳ: ${t.daily_note.slice(0, 35)}...</span>` : ''}
+              <button onclick="openDailyModal('${t.id}')" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-xs transition">
+                Кунлик ҳисобот киритиш
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterOverdueOnly() {
+      document.getElementById('filterStatus').value = 'overdue';
+      switchTab('all-tasks');
+    }
+
+    function handleGlobalSearch() {
+      if (appState.currentTab !== 'all-tasks') {
+        switchTab('all-tasks');
+      } else {
+        applyTaskFilters();
+      }
+    }
+
+    function renderExecutorIndividualTab() {
+      const exSheet = appState.selectedExecutor;
+      document.getElementById('currentExecutorSelect').value = exSheet;
+
+      const exTasks = appState.tasks.filter(t => t.sheet_source === exSheet);
+      const exOverdue = exTasks.filter(t => t.is_overdue && t.status !== 'Бажарилди').length;
+      const exUpcoming = exTasks.filter(t => !t.is_overdue && t.status !== 'Бажарилди').length;
+      const exDone = exTasks.filter(t => t.status === 'Бажарилди').length;
+
+      document.getElementById('execViewTitle').innerText = exSheet + ' — Ижро Варақаси';
+
+      const statRow = document.getElementById('execPersonalStatRow');
+      statRow.innerHTML = `
+        <div class="bg-white p-4 rounded-xl border border-slate-200">
+          <div class="text-xs text-slate-500">Шахсий жами топшириқлар</div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-1">${exTasks.length} та</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-rose-200 bg-rose-50/30">
+          <div class="text-xs text-rose-600 font-semibold">Муддати ўтган қарздорлик</div>
+          <div class="text-2xl font-extrabold text-rose-600 mt-1">${exOverdue} та</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-emerald-200 bg-emerald-50/30">
+          <div class="text-xs text-emerald-600 font-semibold">Бажарилди деб белгиланган</div>
+          <div class="text-2xl font-extrabold text-emerald-600 mt-1">${exDone} та</div>
+        </div>
+      `;
+
+      const container = document.getElementById('executorIndividualTasksContainer');
+      container.innerHTML = '';
+
+      exTasks.forEach(t => {
+        const isDone = t.status === 'Бажарилди';
+        const isOverdue = t.is_overdue && !isDone;
+
+        const card = document.createElement('div');
+        card.className = `bg-white p-5 rounded-2xl border ${isOverdue ? 'border-rose-300 shadow-sm' : 'border-slate-200'} space-y-3.5`;
+
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">${t.id}</span>
+              <span class="text-xs font-bold text-slate-900">${t.doc_type}</span>
+              <span class="text-xs font-semibold text-slate-600">${t.doc_info.replace(/\n/g, ' ')}</span>
+            </div>
+            <div>
+              ${isOverdue ? 
+                `<span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 text-[11px] font-extrabold">Қарздорлик: ${Math.abs(t.days_diff)} кун кечиккан!</span>` :
+                isDone ? 
+                `<span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold">Бажарилган ✓</span>` :
+                `<span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 text-[11px] font-extrabold">Муддат: ${t.deadline}</span>`
+              }
+            </div>
+          </div>
+
+          <div class="text-xs text-slate-800 font-normal leading-relaxed">
+            ${t.task_text}
+          </div>
+
+          ${t.daily_note ? `
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+              <div class="flex items-center justify-between text-[10px] text-slate-400">
+                <span>Охирги кунлик ҳисобот:</span>
+                <span>${t.last_update}</span>
+              </div>
+              <p class="font-medium text-slate-700">${t.daily_note}</p>
+            </div>
+          ` : ''}
+
+          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <span class="text-slate-500 text-[11px]">Ҳолати: <strong>${t.status}</strong></span>
+            
+            <div class="flex items-center gap-2">
+              <button onclick="quickStatusChange('${t.id}', 'Бажарилди')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-xs shadow-xs transition">
+                ✓ Бажарилди deb белгилаш
+              </button>
+              <button onclick="openDailyModal('${t.id}')" class="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg font-semibold text-xs border border-blue-200 transition">
+                Кунлик изоҳ / Ҳисобот киритиш
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function handleExecutorChange(val) {
+      appState.selectedExecutor = val;
+      renderExecutorIndividualTab();
+    }
+
+    let currentModalTask = null;
+
+    function openDailyModal(taskId) {
+      currentModalTask = appState.tasks.find(t => t.id === taskId);
+      if (!currentModalTask) return;
+
+      document.getElementById('modalTaskId').value = taskId;
+      document.getElementById('modalTaskIdBadge').innerText = taskId;
+      document.getElementById('modalTaskTextPreview').innerText = currentModalTask.task_text.slice(0, 220) + '...';
+      document.getElementById('modalTaskDeadlinePreview').innerText = currentModalTask.deadline;
+      document.getElementById('modalTaskExecutorPreview').innerText = currentModalTask.executor.replace(/\n/g, ', ');
+      document.getElementById('modalStatusSelect').value = currentModalTask.status;
+      document.getElementById('modalDailyNoteText').value = currentModalTask.daily_note || '';
+
+      document.getElementById('dailyReportModal').classList.remove('hidden');
+    }
+
+    function closeDailyModal() {
+      document.getElementById('dailyReportModal').classList.add('hidden');
+    }
+
+    function submitDailyReport(e) {
+      e.preventDefault();
+      const taskId = document.getElementById('modalTaskId').value;
+      const newStatus = document.getElementById('modalStatusSelect').value;
+      const note = document.getElementById('modalDailyNoteText').value;
+
+      const task = appState.tasks.find(t => t.id === taskId);
+      if (task) {
+        const oldStatus = task.status;
+        task.status = newStatus;
+        task.daily_note = note;
+        task.last_update = new Date().toLocaleDateString('uz-UZ') + ' ' + new Date().toLocaleTimeString('uz-UZ', {hour: '2-digit', minute:'2-digit'});
+
+        appState.auditLog.unshift({
+          taskId: taskId,
+          executor: task.executor.replace(/\n/g, ' '),
+          sheet: task.sheet_source,
+          oldStatus: oldStatus,
+          newStatus: newStatus,
+          note: note,
+          time: task.last_update
+        });
+
+        saveState();
+        closeDailyModal();
+        renderCurrentTab();
+        showToast('Кунлик ҳисобот муваффақиятли сақланди!', '🎯');
+      }
+    }
+
+    function quickStatusChange(taskId, status) {
+      const task = appState.tasks.find(t => t.id === taskId);
+      if (task) {
+        task.status = status;
+        task.last_update = new Date().toLocaleDateString('uz-UZ') + ' ' + new Date().toLocaleTimeString('uz-UZ', {hour: '2-digit', minute:'2-digit'});
+        appState.auditLog.unshift({
+          taskId: taskId,
+          executor: task.executor.replace(/\n/g, ' '),
+          sheet: task.sheet_source,
+          oldStatus: 'Бажарилмаган',
+          newStatus: status,
+          note: 'Тезкор тасдиқлаш орқали бажарилди deb белгиланди.',
+          time: task.last_update
+        });
+        saveState();
+        renderCurrentTab();
+        showToast(`${taskId} бажарилди деб тасдиқланди!`, '✅');
+      }
+    }
+
+    function renderDailyLogTab() {
+      const list = document.getElementById('dailyAuditLogList');
+      list.innerHTML = '';
+
+      if (appState.auditLog.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-10 text-slate-400 text-xs">
+            <div class="text-2xl mb-1">📝</div>
+            Бугун ҳали кунлик ижро ўзгаришлари киритилмаган. Ижрочи кабинети ёки реестр орқали кунлик ҳисобот киритинг.
+          </div>
+        `;
+        return;
+      }
+
+      appState.auditLog.forEach(log => {
+        const div = document.createElement('div');
+        div.className = 'p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3';
+        div.innerHTML = `
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-blue-700">${log.taskId}</span>
+              <span class="font-semibold text-slate-800">${log.executor}</span>
+              <span class="text-[10px] bg-slate-200 text-slate-700 px-1.5 py-0.2 rounded font-bold">${log.newStatus}</span>
+            </div>
+            <p class="text-slate-600 mt-1 italic">"${log.note}"</p>
+          </div>
+          <span class="text-[11px] text-slate-400 font-mono">${log.time}</span>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function clearDailyAuditLog() {
+      appState.auditLog = [];
+      saveState();
+      renderDailyLogTab();
+      showToast('Кунлик журнал тозаланди', '🗑️');
+    }
+
+    function exportSummaryReport() {
+      let csvContent = 'data:text/csv;charset=utf-8,ID,Hujjat,Bajarish Muddati,Mas\x27ul,Qarzdorlik Holati,Status,Kunlik Izoh\n';
+      appState.tasks.forEach(t => {
+        const row = [
+          t.id,
+          '"' + t.doc_type + ' ' + t.doc_info.replace(/\n/g, ' ') + '"',
+          t.deadline,
+          '"' + t.executor.replace(/\n/g, ' ') + '"',
+          t.is_overdue ? 'Qarzdorlik' : 'Muddati bor',
+          t.status,
+          '"' + (t.daily_note || '').replace(/\n/g, ' ') + '"'
+        ].join(',');
+        csvContent += row + '\n';
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'OzMMA_Ijro_Tahlili_18_11_2026.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Ҳисобот CSV форматида юкланди!', '📥');
+    }
+
+    function showToast(msg, icon = '✅') {
+      const toast = document.getElementById('toastAlert');
+      document.getElementById('toastMsg').innerText = msg;
+      document.getElementById('toastIcon').innerText = icon;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3200);
+    }
+
+    window.onload = function() {
+      renderCurrentTab();
+    };
+  </script>
+</body>
+</html>
