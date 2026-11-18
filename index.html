@@ -22,6 +22,12 @@
       color: #0f172a;
       font-weight: 700;
     }
+    .month-pill.active {
+      background-color: #e11d48;
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 4px 6px -1px rgba(225, 29, 72, 0.3);
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
@@ -37,7 +43,11 @@
       </div>
 
       <div class="flex items-center gap-4 text-[11px]">
-        <span class="text-slate-300 hidden lg:inline">Ишонч телефони: <strong>+998 (71) 200-00-00</strong></span>
+        <!-- TG ACCOUNT LINK (REPLACED PHONE NUMBER) -->
+        <a href="https://t.me/m337xxx" target="_blank" class="hover:text-amber-400 transition flex items-center gap-1.5 font-bold text-sky-400 bg-sky-950/60 px-2.5 py-0.5 rounded-full border border-sky-600/40">
+          <span>✈️</span>
+          <span>Боғланиш: @m337xxx</span>
+        </a>
         <span class="text-slate-500 hidden lg:inline">|</span>
         <a href="https://edo.ijro.uz" target="_blank" class="hover:text-amber-400 transition flex items-center gap-1 font-semibold">
           <span>🌐</span>
@@ -73,18 +83,26 @@
         </div>
       </a>
 
-      <!-- Navigation Menu (BALAD template style) -->
-      <nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-700">
+      <!-- Navigation Menu -->
+      <nav class="hidden lg:flex items-center gap-5 text-xs font-bold text-slate-700">
         <a href="#hero" class="hover:text-gov-coral transition">Бош саҳифа</a>
         <a href="#statistics" class="hover:text-gov-coral transition">Ижро таҳлили</a>
         <a href="#departments" class="hover:text-gov-coral transition">Бўлинмалар</a>
-        <a href="#urgent-tasks" class="hover:text-gov-coral transition">Долзарб топшириқлар</a>
-        <a href="#officials" class="hover:text-gov-coral transition">Масъул раҳбарлар</a>
-        <a href="#interactive-registry" class="hover:text-gov-coral transition">Тўлиқ Реестр</a>
+        <a href="#urgent-tasks" class="hover:text-gov-coral transition">Ҳужжатлар</a>
+        <a href="#birthdays" class="hover:text-gov-coral transition flex items-center gap-1 text-gov-coral font-extrabold">
+          <span>🎂</span>
+          <span>Туғилган кунлар</span>
+        </a>
+        <a href="#officials" class="hover:text-gov-coral transition">Масъуллар</a>
+        <a href="#interactive-registry" class="hover:text-gov-coral transition">Реестр</a>
       </nav>
 
-      <!-- Action Button & Search -->
-      <div class="flex items-center gap-3">
+      <!-- Action Button & TG Link -->
+      <div class="flex items-center gap-2">
+        <a href="https://t.me/m337xxx" target="_blank" class="px-3 py-1.5 bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1">
+          <span>✈️</span>
+          <span>@m337xxx</span>
+        </a>
         <a href="#interactive-registry" class="px-4 py-2 bg-gov-coral hover-bg-gov-coral text-white rounded-lg text-xs font-bold shadow-md shadow-rose-900/15 transition flex items-center gap-1.5">
           <span>📋</span>
           <span>Реестр (57 та)</span>
@@ -94,7 +112,7 @@
     </div>
   </header>
 
-  <!-- ==================== 3. MONUMENTAL HERO BANNER (BALAD Government Hero) ==================== -->
+  <!-- ==================== 3. MONUMENTAL HERO BANNER ==================== -->
   <section id="hero" class="relative bg-gov-navy text-white overflow-hidden py-14 lg:py-20 border-b-4 border-amber-500">
     <div class="absolute inset-0 opacity-40 pointer-events-none">
       <img src="assets/hero_bg.svg" alt="Background watermark" class="w-full h-full object-cover">
@@ -123,9 +141,13 @@
             <span>🚨</span>
             <span>Қарздорликларни кўриш (43 та)</span>
           </a>
+          <a href="#birthdays" class="px-5 py-3 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-xl text-xs font-extrabold shadow-lg shadow-amber-900/30 transition flex items-center gap-2">
+            <span>🎂</span>
+            <span>Туғилган кунлар жадвали</span>
+          </a>
           <a href="#interactive-registry" class="px-5 py-3 bg-slate-800/80 hover:bg-slate-700/90 text-white rounded-xl text-xs font-bold border border-slate-600 transition flex items-center gap-2">
             <span>📊</span>
-            <span>Кунлик Ижро Жадвали</span>
+            <span>Ижро Жадвали</span>
           </a>
         </div>
 
@@ -146,15 +168,13 @@
         </div>
       </div>
 
-      <!-- Right Column: Executive Quote / Speech Card (from template) -->
+      <!-- Right Column: Executive Quote / Speech Card -->
       <div class="lg:col-span-5">
         <div class="bg-slate-900/85 backdrop-blur-md rounded-3xl border border-slate-700 p-6 shadow-2xl relative overflow-hidden group">
           <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-blue-600/10 rounded-full blur-2xl pointer-events-none"></div>
 
           <div class="relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 mb-4 flex items-center justify-center">
-            <!-- RASM O'RNI: assets/leader.jpg -->
-            <img src="assets/leader.jpg" alt="Раҳбар сурати" class="w-full h-full object-cover"
-                 onerror="this.src='assets/hero_bg.svg'">
+            <img src="assets/news_president.png" alt="Президент фармонлари ва раҳбарият" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex items-end p-4">
               <div>
                 <span class="text-[10px] font-bold uppercase tracking-wider bg-gov-coral text-white px-2 py-0.5 rounded">Раҳбар минбари</span>
@@ -180,7 +200,7 @@
     </div>
   </section>
 
-  <!-- ==================== 4. BE UPDATED WITH CITY NEWS / URGENT TASKS (4-Card Row) ==================== -->
+  <!-- ==================== 4. DOCUMENT CATEGORIES CARDS (WITH REAL IMAGES!) ==================== -->
   <section id="urgent-tasks" class="py-14 bg-white border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 space-y-8">
       
@@ -195,29 +215,28 @@
         </p>
       </div>
 
-      <!-- 4 News Cards Grid -->
+      <!-- 4 Document Cards Grid (REAL IMAGES ATTACHED!) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
-        <!-- Card 1: Президент ҳужжатлари -->
+        <!-- Card 1: Президент қарор ва фармонлари (REAL IMAGE) -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
           <div class="relative h-44 bg-slate-100 overflow-hidden">
-            <img src="assets/news_president.jpg" alt="Президент ҳужжатлари" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                 onerror="this.src='assets/hero_bg.svg'">
+            <img src="assets/news_president.png" alt="Президент қарор ва фармонлари" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
             <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-blue-700 text-white font-extrabold text-[10px] shadow-sm">
               Президент: 6 та
             </div>
-            <div class="absolute bottom-2 left-3 text-[10px] text-white/90 bg-slate-900/60 px-2 py-0.5 rounded backdrop-blur-xs font-mono">
-              Ф-63 • 10-3030
+            <div class="absolute bottom-2 left-3 text-[10px] text-white/90 bg-slate-900/70 px-2 py-0.5 rounded backdrop-blur-xs font-mono">
+              Ф-63 • Фармойиш
             </div>
           </div>
           <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
             <div>
-              <span class="text-[10px] font-bold text-blue-700 uppercase">Олий даражадаги топшириқлар</span>
+              <span class="text-[10px] font-bold text-blue-700 uppercase">Давлат раҳбари ҳужжатлари</span>
               <h3 class="text-sm font-bold text-slate-900 leading-snug mt-1 group-hover:text-blue-700 transition">
-                Конституциявий ислоҳотлар ва Зиёлилар кенгаши
+                Президент Қарор ва Фармонлари
               </h3>
               <p class="text-xs text-slate-500 mt-2 line-clamp-3">
-                Янги таҳрирдаги Конституция бўйича медиарежалар ва «Ўзбекистон зиёлилари кенгаши»ни ташкил этиш вазифалари.
+                Конституциявий ислоҳотлар, байрам тарғиботи ва давлат телеканалларида махсус медиамаҳсулотларни ёритиш.
               </p>
             </div>
             <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
@@ -227,26 +246,53 @@
           </div>
         </div>
 
-        <!-- Card 2: Ҳукумат қарорлари -->
+        <!-- Card 2: Президент Администрацияси (REAL IMAGE) -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
           <div class="relative h-44 bg-slate-100 overflow-hidden">
-            <img src="assets/news_gov.jpg" alt="Ҳукумат қарорлари" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                 onerror="this.src='assets/hero_bg.svg'">
+            <img src="assets/news_pa.jpg" alt="Президент Администрацияси" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-purple-700 text-white font-extrabold text-[10px] shadow-sm">
+              Администрация
+            </div>
+            <div class="absolute bottom-2 left-3 text-[10px] text-white/90 bg-slate-900/70 px-2 py-0.5 rounded backdrop-blur-xs font-mono">
+              10-3030-сон
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[10px] font-bold text-purple-700 uppercase">Президент Администрацияси</span>
+              <h3 class="text-sm font-bold text-slate-900 leading-snug mt-1 group-hover:text-purple-700 transition">
+                Президент Администрацияси Топшириқлари
+              </h3>
+              <p class="text-xs text-slate-500 mt-2 line-clamp-3">
+                «Ўзбекистон зиёлилари кенгаши»ни ташкил этиш, бино ва инфратузилмани тайёрлаш бўйича қатъий назоратдаги вазифалар.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-slate-400 text-[11px]">Масъул: С.Умаров</span>
+              <a href="#interactive-registry" class="text-gov-coral font-bold hover:underline">Кўриш &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Вазирлар Маҳкамаси (REAL IMAGE) -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
+          <div class="relative h-44 bg-slate-100 overflow-hidden">
+            <img src="assets/news_gov.jpg" alt="Вазирлар Маҳкамаси" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
             <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-emerald-700 text-white font-extrabold text-[10px] shadow-sm">
               ВМ: 9 та
             </div>
-            <div class="absolute bottom-2 left-3 text-[10px] text-white/90 bg-slate-900/60 px-2 py-0.5 rounded backdrop-blur-xs font-mono">
+            <div class="absolute bottom-2 left-3 text-[10px] text-white/90 bg-slate-900/70 px-2 py-0.5 rounded backdrop-blur-xs font-mono">
               ВМҚ-202 • ВМ-218
             </div>
           </div>
           <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
             <div>
-              <span class="text-[10px] font-bold text-emerald-700 uppercase">Ҳукумат топшириқлари</span>
+              <span class="text-[10px] font-bold text-emerald-700 uppercase">Ҳукумат қарорлари</span>
               <h3 class="text-sm font-bold text-slate-900 leading-snug mt-1 group-hover:text-emerald-700 transition">
-                Ижтимоий тарғибот ва медиа лойиҳалар
+                Вазирлар Маҳкамаси Топшириқлари
               </h3>
               <p class="text-xs text-slate-500 mt-2 line-clamp-3">
-                Меҳнат миграцияси хавф-хатарлари, исрофгарчиликнинг олдини олиш ва ис газидан заҳарланишга қарши медиа маҳсулотлар.
+                Меҳнат миграцияси хавфлари, исрофгарчиликнинг олдини олиш ва ис газидан заҳарланишга қарши медиа маҳсулотлар.
               </p>
             </div>
             <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
@@ -256,15 +302,14 @@
           </div>
         </div>
 
-        <!-- Card 3: Ички баёнлар -->
+        <!-- Card 4: Ички баёнлар ва 2027 иш режаси -->
         <div class="bg-white rounded-2xl border border-rose-200 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group bg-rose-50/10">
           <div class="relative h-44 bg-slate-100 overflow-hidden">
-            <img src="assets/news_internal.jpg" alt="Ички баёнлар" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                 onerror="this.src='assets/hero_bg.svg'">
+            <img src="assets/hero_bg.svg" alt="Ички баёнлар" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
             <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-gov-coral text-white font-extrabold text-[10px] shadow-sm">
               Ички: 42 та
             </div>
-            <div class="absolute bottom-2 left-3 text-[10px] text-white/90 bg-slate-900/60 px-2 py-0.5 rounded backdrop-blur-xs font-mono">
+            <div class="absolute bottom-2 left-3 text-[10px] text-white/90 bg-slate-900/70 px-2 py-0.5 rounded backdrop-blur-xs font-mono">
               Баён 01-04/4
             </div>
           </div>
@@ -285,41 +330,12 @@
           </div>
         </div>
 
-        <!-- Card 4: ХДФУ хатлари -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
-          <div class="relative h-44 bg-slate-100 overflow-hidden">
-            <img src="assets/news_xdfu.jpg" alt="ХДФУ хатлар" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                 onerror="this.src='assets/hero_bg.svg'">
-            <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-purple-700 text-white font-extrabold text-[10px] shadow-sm">
-              ХДФУ хатлар
-            </div>
-            <div class="absolute bottom-2 left-3 text-[10px] text-white/90 bg-slate-900/60 px-2 py-0.5 rounded backdrop-blur-xs font-mono">
-              №24/1-3550
-            </div>
-          </div>
-          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
-            <div>
-              <span class="text-[10px] font-bold text-purple-700 uppercase">Махсус назоратдаги хатлар</span>
-              <h3 class="text-sm font-bold text-slate-900 leading-snug mt-1 group-hover:text-purple-700 transition">
-                Лотин ёзувига асосланган алифбо тарғиботи
-              </h3>
-              <p class="text-xs text-slate-500 mt-2 line-clamp-3">
-                «Лотин ёзувига асосланган ўзбек алифбосини жорий этиш» Қонунининг мазмун-моҳиятини ёритиш бўйича медиарежа ижроси.
-              </p>
-            </div>
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-              <span class="text-slate-400 text-[11px]">Муддат: 30.11.2026</span>
-              <a href="#interactive-registry" class="text-gov-coral font-bold hover:underline">Кўриш &rarr;</a>
-            </div>
-          </div>
-        </div>
-
       </div>
 
     </div>
   </section>
 
-  <!-- ==================== 5. DEPARTMENTS & INFORMATION DESK (7 Cards Separated: Matbuot & Hisobchilik separated!) ==================== -->
+  <!-- ==================== 5. DEPARTMENTS & INFORMATION DESK ==================== -->
   <section id="departments" class="py-14 bg-slate-100/70 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 space-y-8">
       
@@ -345,10 +361,14 @@
         <!-- 7 Department Cards Grid (8 Columns) -->
         <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           
-          <!-- Dept 1: Умаров С. -->
+          <!-- Dept 1: Умаров С. (REAL PHOTO) -->
           <div onclick="selectDepartment('С.Умаров (19 та)')" class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-blue-400 transition cursor-pointer flex flex-col justify-between space-y-3 group">
-            <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center text-xl font-bold group-hover:bg-blue-600 group-hover:text-white transition">
-              🏛️
+            <div class="flex items-center justify-between">
+              <div class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-blue-500/50 shadow-xs">
+                <img src="assets/official_umarov.jpg" alt="Умаров Саидаҳмад" class="w-full h-full object-cover object-top"
+                     onerror="this.src='assets/avatar_placeholder.svg'">
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">Лойиҳалар</span>
             </div>
             <div>
               <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-blue-700 transition">Лойиҳалар билан ишлаш</h3>
@@ -360,7 +380,7 @@
             </div>
           </div>
 
-          <!-- Dept 2: Устабабаев С. (WITH PHOTO!) -->
+          <!-- Dept 2: Устабабаев С. (REAL PHOTO) -->
           <div onclick="selectDepartment('С.Устабабаев (12 та)')" class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-blue-400 transition cursor-pointer flex flex-col justify-between space-y-3 group">
             <div class="flex items-center justify-between">
               <div class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-emerald-500/50 shadow-xs">
@@ -379,10 +399,14 @@
             </div>
           </div>
 
-          <!-- Dept 3: Хакимов Н. -->
+          <!-- Dept 3: Хакимов Н. (REAL PHOTO) -->
           <div onclick="selectDepartment('Н.Хакимов (9 та)')" class="bg-white p-5 rounded-2xl border border-rose-200 shadow-xs hover:shadow-lg hover:border-rose-400 transition cursor-pointer flex flex-col justify-between space-y-3 group bg-rose-50/10">
-            <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-700 flex items-center justify-center text-xl font-bold group-hover:bg-purple-600 group-hover:text-white transition">
-              🌐
+            <div class="flex items-center justify-between">
+              <div class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-purple-500/50 shadow-xs">
+                <img src="assets/official_xakimov.jpg" alt="Хакимов Низом" class="w-full h-full object-cover object-top"
+                     onerror="this.src='assets/avatar_placeholder.svg'">
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">Халқаро</span>
             </div>
             <div>
               <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-purple-700 transition">Ҳалқаро ҳамкорлик бўлими</h3>
@@ -394,10 +418,14 @@
             </div>
           </div>
 
-          <!-- Dept 4: Ачилов Ф. -->
+          <!-- Dept 4: Ачилов Ф. (REAL PHOTO) -->
           <div onclick="selectDepartment('Ф.Ачилов (8 та)')" class="bg-white p-5 rounded-2xl border border-rose-200 shadow-xs hover:shadow-lg hover:border-rose-400 transition cursor-pointer flex flex-col justify-between space-y-3 group bg-rose-50/10">
-            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-bold group-hover:bg-amber-600 group-hover:text-white transition">
-              📡
+            <div class="flex items-center justify-between">
+              <div class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-amber-500/50 shadow-xs">
+                <img src="assets/official_achilov.png" alt="Ачилов Фаёз" class="w-full h-full object-cover object-top"
+                     onerror="this.src='assets/avatar_placeholder.svg'">
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">Медиа</span>
             </div>
             <div>
               <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-amber-700 transition">Тармоқ таҳлили ва медиа</h3>
@@ -424,7 +452,7 @@
             </div>
           </div>
 
-          <!-- Dept 6: МАТБУОТ ХИЗМАТИ (АЛОҲИДА, WITH PHOTO OF QUTBIDDINOVA!) -->
+          <!-- Dept 6: МАТБУОТ ХИЗМАТИ (REAL PHOTO QUTBIDDINOVA) -->
           <div onclick="selectDepartment('Н.Қутбиддинова (3 та)')" class="bg-white p-5 rounded-2xl border border-rose-200 shadow-xs hover:shadow-lg hover:border-pink-400 transition cursor-pointer flex flex-col justify-between space-y-3 group bg-rose-50/10">
             <div class="flex items-center justify-between">
               <div class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-pink-500/50 shadow-xs">
@@ -435,7 +463,7 @@
             </div>
             <div>
               <h3 class="font-extrabold text-slate-900 text-xs group-hover:text-pink-700 transition">Матбуот хизмати (Жамоатчилик)</h3>
-              <p class="text-[11px] text-slate-500 mt-0.5">Матбуот котиби: Қутбиддинова Нодира</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">Қутбиддинова Нодира</p>
             </div>
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
               <span class="font-bold text-slate-700">3 та топшириқ</span>
@@ -502,108 +530,98 @@
     </div>
   </section>
 
-  <!-- ==================== 6. RECENT EVENTS & UPCOMING SCHEDULES ==================== -->
-  <section class="py-14 bg-white border-b border-slate-200">
+  <!-- ==================== 6. DEDICATED BIRTHDAYS CALENDAR SECTION (NEW FEATURE!) ==================== -->
+  <section id="birthdays" class="py-14 bg-gradient-to-b from-slate-100 to-white border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 space-y-8">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
-        <!-- Left: Featured Upcoming Banner (5 Columns) -->
-        <div class="lg:col-span-5 bg-gradient-to-br from-blue-900 to-slate-900 rounded-3xl p-6 text-white shadow-xl space-y-4">
-          <div class="relative h-48 rounded-2xl overflow-hidden bg-slate-800 border border-slate-700">
-            <img src="assets/schedule_feature.jpg" alt="Муҳим муддатлар" class="w-full h-full object-cover"
-                 onerror="this.src='assets/hero_bg.svg'">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 to-transparent flex items-end p-4">
-              <div>
-                <span class="text-[10px] bg-amber-500 text-slate-950 font-extrabold px-2 py-0.5 rounded">20-30 ноябрь дедлайнлари</span>
-                <div class="text-sm font-bold text-white mt-1">14 та топшириқ муддати яқинлашмоқда</div>
-              </div>
-            </div>
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-100 text-gov-coral font-black text-[11px] uppercase tracking-wider mb-1">
+            <span>🎉</span>
+            <span>Тақвим ва табриклар</span>
           </div>
-          <p class="text-xs text-slate-300 leading-relaxed font-light">
-            Ушбу топшириқлар бўйича муддат бузилишига йўл қўймаслик учун ҳозирданоқ якуний лойиҳалар edo.ijro.uz тизимига келишувга киритилиши шарт.
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Туғилган Кунлар Жадвали
+          </h2>
+          <p class="text-slate-500 text-xs sm:text-sm mt-1">
+            ЎзММА ходимлари, аъзолари, медиа раҳбарлари ва давлат арбобларининг 12 ойлик таваллуд саналари
           </p>
-          <div class="pt-2 flex items-center justify-between text-xs">
-            <span class="text-amber-400 font-semibold">Назорат гуруҳи</span>
-            <a href="#interactive-registry" class="text-white underline font-bold">Барчасини кўриш &rarr;</a>
+        </div>
+
+        <!-- Birthday Search Input -->
+        <div class="relative">
+          <input type="text" id="birthdaySearchInput" oninput="filterBirthdays()" placeholder="Ф.И.Ш ёки лавозим қидириш..."
+            class="w-64 pl-8 pr-3 py-2 text-xs bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500 shadow-xs">
+          <span class="absolute left-2.5 top-2.5 text-slate-400 text-xs">🔍</span>
+        </div>
+      </div>
+
+      <!-- TODAY CELEBRATION SPECIAL BANNER (18-NOYABR: NIZOM XAKIMOV!) -->
+      <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600 text-white shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-2xl shrink-0">
+            🎂
+          </div>
+          <div>
+            <span class="text-[10px] font-black uppercase tracking-wider bg-white text-slate-900 px-2 py-0.5 rounded">Бугун — 18-ноябрь Таваллуд айёми!</span>
+            <div class="text-sm sm:text-base font-black mt-1">ХАКИМОВ Низом Ромео ўғли</div>
+            <div class="text-xs text-amber-100">Ўзбекистон Миллий медиа ассоциацияси Халқаро ҳамкорлик бўлими бошлиғи</div>
+          </div>
+        </div>
+        <div class="text-center sm:text-right shrink-0">
+          <span class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-xl text-xs font-black backdrop-blur-xs inline-block transition">
+            Таваллуд айёмингиз муборак бўлсин! 🎉
+          </span>
+        </div>
+      </div>
+
+      <!-- 12 Month Selector Pills -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-2 custom-scroll text-xs">
+        <button onclick="selectMonth('ЯНВАРЬ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="ЯНВАРЬ">Январь</button>
+        <button onclick="selectMonth('ФЕВРАЛЬ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="ФЕВРАЛЬ">Февраль</button>
+        <button onclick="selectMonth('МАРТ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="МАРТ">Март</button>
+        <button onclick="selectMonth('АПРЕЛЬ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="АПРЕЛЬ">Апрель</button>
+        <button onclick="selectMonth('МАЙ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="МАЙ">Май</button>
+        <button onclick="selectMonth('ИЮНЬ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="ИЮНЬ">Июнь</button>
+        <button onclick="selectMonth('ИЮЛЬ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="ИЮЛЬ">Июль</button>
+        <button onclick="selectMonth('АВГУСТ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="АВГУСТ">Август</button>
+        <button onclick="selectMonth('СЕНТЯБРЬ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="СЕНТЯБРЬ">Сентябрь</button>
+        <button onclick="selectMonth('ОКТЯБРЬ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="ОКТЯБРЬ">Октябрь</button>
+        <button onclick="selectMonth('НОЯБРЬ')" class="month-pill active px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="НОЯБРЬ">Ноябрь (Жорий)</button>
+        <button onclick="selectMonth('ДЕКАБРЬ')" class="month-pill px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold whitespace-nowrap hover:bg-slate-50 transition" data-month="ДЕКАБРЬ">Декабрь</button>
+      </div>
+
+      <!-- Birthday Lists Grid (Staff on Left + VIPs on Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left: ЎзММА Ҳодимлари (5 Columns) -->
+        <div class="lg:col-span-5 bg-white p-5 rounded-3xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">🏛️</span>
+              <h3 class="font-black text-sm text-slate-900">ЎзММА Ходимлари</h3>
+            </div>
+            <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full" id="staffCountBadge">6 нафар</span>
+          </div>
+
+          <div id="staffBirthdayList" class="space-y-2.5">
+            <!-- Injected by script -->
           </div>
         </div>
 
-        <!-- Right: Upcoming Schedules List (7 Columns) -->
-        <div class="lg:col-span-7 space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-200 pb-2 mb-3">
-            <h3 class="text-base font-extrabold text-slate-900">Муддати Келаётган Топшириқлар Жадвали</h3>
-            <span class="text-xs font-bold text-gov-coral">2026 йил ноябрь</span>
+        <!-- Right: Аъзолар, Ҳамкорлар ва Давлат арбоблари (7 Columns) -->
+        <div class="lg:col-span-7 bg-white p-5 rounded-3xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">🌟</span>
+              <h3 class="font-black text-sm text-slate-900">Аъзолар, Ҳамкорлар ва Раҳбарият</h3>
+            </div>
+            <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full" id="vipCountBadge">9 нафар</span>
           </div>
 
-          <div class="space-y-3">
-            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3 hover:bg-slate-100 transition">
-              <div class="flex items-center gap-3">
-                <div class="w-14 text-center shrink-0">
-                  <div class="text-[10px] font-bold uppercase text-gov-coral">Ноябрь</div>
-                  <div class="text-lg font-black text-slate-900 leading-none">25</div>
-                </div>
-                <div class="border-l border-slate-200 pl-3">
-                  <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.2 rounded">Фармойиш Ф-63</span>
-                  <div class="text-xs font-bold text-slate-800 mt-0.5">Конституция байрами тарғибот материаллари</div>
-                  <div class="text-[11px] text-slate-500">Масъул: Умаров Саидаҳмад</div>
-                </div>
-              </div>
-              <span class="text-[11px] font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200 shrink-0">
-                7 кун қолди
-              </span>
-            </div>
-
-            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3 hover:bg-slate-100 transition">
-              <div class="flex items-center gap-3">
-                <div class="w-14 text-center shrink-0">
-                  <div class="text-[10px] font-bold uppercase text-gov-coral">Ноябрь</div>
-                  <div class="text-lg font-black text-slate-900 leading-none">25</div>
-                </div>
-                <div class="border-l border-slate-200 pl-3">
-                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded">ВМҚ-202</span>
-                  <div class="text-xs font-bold text-slate-800 mt-0.5">Ташқи меҳнат миграцияси хавфлари тўғрисида тарғибот</div>
-                  <div class="text-[11px] text-slate-500">Масъул: Устабабаев Санджар</div>
-                </div>
-              </div>
-              <span class="text-[11px] font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200 shrink-0">
-                7 кун қолди
-              </span>
-            </div>
-
-            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3 hover:bg-slate-100 transition">
-              <div class="flex items-center gap-3">
-                <div class="w-14 text-center shrink-0">
-                  <div class="text-[10px] font-bold uppercase text-gov-coral">Ноябрь</div>
-                  <div class="text-lg font-black text-slate-900 leading-none">28</div>
-                </div>
-                <div class="border-l border-slate-200 pl-3">
-                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded">ВМ 21/26-218</span>
-                  <div class="text-xs font-bold text-slate-800 mt-0.5">Ис гази ва ёнғинларнинг олдини олиш медиа маҳсулотлари</div>
-                  <div class="text-[11px] text-slate-500">Масъул: Устабабаев Санджар</div>
-                </div>
-              </div>
-              <span class="text-[11px] font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200 shrink-0">
-                10 кун қолди
-              </span>
-            </div>
-
-            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3 hover:bg-slate-100 transition">
-              <div class="flex items-center gap-3">
-                <div class="w-14 text-center shrink-0">
-                  <div class="text-[10px] font-bold uppercase text-gov-coral">Ноябрь</div>
-                  <div class="text-lg font-black text-slate-900 leading-none">30</div>
-                </div>
-                <div class="border-l border-slate-200 pl-3">
-                  <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-1.5 py-0.2 rounded">ХДФУ №24/1-3550</span>
-                  <div class="text-xs font-bold text-slate-800 mt-0.5">Лотин ёзувига асосланган алифбо Қонуни тарғиботи</div>
-                  <div class="text-[11px] text-slate-500">Масъул: Умаров Саидаҳмад</div>
-                </div>
-              </div>
-              <span class="text-[11px] font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200 shrink-0">
-                12 кун қолди
-              </span>
-            </div>
+          <div id="vipBirthdayList" class="space-y-2.5">
+            <!-- Injected by script -->
           </div>
         </div>
 
@@ -626,21 +644,21 @@
         </p>
       </div>
 
-      <!-- Officials Cards Grid -->
+      <!-- Officials Cards Grid (REAL PHOTOS EMBEDDED!) -->
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
         
-        <!-- Official 1: Умаров С. -->
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition group">
+        <!-- Official 1: Умаров С. (REAL PHOTO) -->
+        <div class="bg-white rounded-2xl border-2 border-blue-500/40 overflow-hidden shadow-xs hover:shadow-xl transition group">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <img src="assets/official_umarov.jpg" alt="Умаров Саидаҳмад" class="w-full h-full object-cover group-hover:scale-105 transition"
+            <img src="assets/official_umarov.jpg" alt="Умаров Саидаҳмад" class="w-full h-full object-cover object-top group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-slate-900/80 text-white text-[10px] font-bold">
               19 та топшириқ
             </div>
           </div>
           <div class="p-4 space-y-1">
-            <h4 class="font-extrabold text-slate-900 text-xs">Умаров Саидаҳмад</h4>
-            <div class="text-[10px] text-slate-500">Лойиҳалар билан ишлаш бўлими</div>
+            <h4 class="font-extrabold text-slate-900 text-xs text-blue-900">Умаров Саидаҳмад</h4>
+            <div class="text-[10px] text-slate-500">Лойиҳалар билан ишлаш бўлими бошлиғи</div>
             <div class="pt-2 text-[10px] font-extrabold text-rose-600">Қарздорлик: 12 та</div>
           </div>
         </div>
@@ -661,34 +679,37 @@
           </div>
         </div>
 
-        <!-- Official 3: Хакимов Н. -->
-        <div class="bg-white rounded-2xl border border-rose-200 overflow-hidden shadow-xs hover:shadow-lg transition group bg-rose-50/10">
+        <!-- Official 3: Хакимов Н. (REAL PHOTO) -->
+        <div class="bg-white rounded-2xl border-2 border-purple-500/40 overflow-hidden shadow-xs hover:shadow-xl transition group bg-purple-50/10">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <img src="assets/official_xakimov.jpg" alt="Хакимов Низом" class="w-full h-full object-cover group-hover:scale-105 transition"
+            <img src="assets/official_xakimov.jpg" alt="Хакимов Низом" class="w-full h-full object-cover object-top group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
+            <div class="absolute top-2 right-2 px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-[10px] font-black">
+              🎂 Бугун!
+            </div>
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-gov-coral text-white text-[10px] font-bold">
               9 та (100% қарз)
             </div>
           </div>
           <div class="p-4 space-y-1">
-            <h4 class="font-extrabold text-slate-900 text-xs">Хакимов Низом</h4>
-            <div class="text-[10px] text-slate-500">Ҳалқаро ҳамкорлик бўлими</div>
+            <h4 class="font-extrabold text-slate-900 text-xs text-purple-900">Хакимов Низом</h4>
+            <div class="text-[10px] text-slate-500">Ҳалқаро ҳамкорлик бўлими бошлиғи</div>
             <div class="pt-2 text-[10px] font-extrabold text-rose-600">Қарздорлик: 9 та</div>
           </div>
         </div>
 
-        <!-- Official 4: Ачилов Ф. -->
-        <div class="bg-white rounded-2xl border border-rose-200 overflow-hidden shadow-xs hover:shadow-lg transition group bg-rose-50/10">
+        <!-- Official 4: Ачилов Ф. (REAL PHOTO) -->
+        <div class="bg-white rounded-2xl border-2 border-amber-500/40 overflow-hidden shadow-xs hover:shadow-xl transition group bg-amber-50/10">
           <div class="relative aspect-square bg-slate-200 overflow-hidden">
-            <img src="assets/official_achilov.jpg" alt="Ачилов Фаёз" class="w-full h-full object-cover group-hover:scale-105 transition"
+            <img src="assets/official_achilov.png" alt="Ачилов Фаёз" class="w-full h-full object-cover object-top group-hover:scale-105 transition"
                  onerror="this.src='assets/avatar_placeholder.svg'">
             <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-gov-coral text-white text-[10px] font-bold">
               8 та (100% қарз)
             </div>
           </div>
           <div class="p-4 space-y-1">
-            <h4 class="font-extrabold text-slate-900 text-xs">Ачилов Фаёз</h4>
-            <div class="text-[10px] text-slate-500">Тармоқ таҳлили ва медиа</div>
+            <h4 class="font-extrabold text-slate-900 text-xs text-amber-900">Ачилов Фаёз</h4>
+            <div class="text-[10px] text-slate-500">Тармоқ таҳлили ва медиа бўлими бошлиғи</div>
             <div class="pt-2 text-[10px] font-extrabold text-rose-600">Қарздорлик: 8 та</div>
           </div>
         </div>
@@ -704,7 +725,7 @@
           </div>
           <div class="p-4 space-y-1">
             <h4 class="font-extrabold text-slate-900 text-xs">Ахмедов Улуғбек</h4>
-            <div class="text-[10px] text-slate-500">Маркетинг ва тижорат</div>
+            <div class="text-[10px] text-slate-500">Маркетинг ва тижорат бўлими бошлиғи</div>
             <div class="pt-2 text-[10px] font-extrabold text-rose-600">Қарздорлик: 4 та</div>
           </div>
         </div>
@@ -916,7 +937,7 @@
     </div>
   </section>
 
-  <!-- ==================== 10. OFFICIAL GOVERNMENT FOOTER (with real logo) ==================== -->
+  <!-- ==================== 10. OFFICIAL GOVERNMENT FOOTER (WITH TG LINK) ==================== -->
   <footer class="bg-gov-navy text-slate-300 pt-12 pb-6 border-t-4 border-gov-coral text-xs">
     <div class="max-w-7xl mx-auto px-4 space-y-8">
       
@@ -947,10 +968,11 @@
           </ul>
         </div>
 
-        <!-- Col 3: Sections -->
+        <!-- Col 3: Sections & Birthdays -->
         <div class="space-y-3">
-          <div class="text-white font-bold text-xs uppercase tracking-wider">Бўлимлар</div>
+          <div class="text-white font-bold text-xs uppercase tracking-wider">Бўлимлар & Модуллар</div>
           <ul class="space-y-2 text-slate-400">
+            <li><a href="#birthdays" class="hover:text-amber-400 text-amber-300 font-bold transition">&bull; 🎂 Туғилган кунлар жадвали</a></li>
             <li><a href="#departments" class="hover:text-white transition">&bull; Лойиҳалар билан ишлаш</a></li>
             <li><a href="#departments" class="hover:text-white transition">&bull; Аъзолар билан ишлаш</a></li>
             <li><a href="#departments" class="hover:text-white transition">&bull; Ҳалқаро ҳамкорлик</a></li>
@@ -959,13 +981,17 @@
           </ul>
         </div>
 
-        <!-- Col 4: Admin Access & Security -->
+        <!-- Col 4: Contact via Telegram & Admin Access -->
         <div class="space-y-3">
-          <div class="text-white font-bold text-xs uppercase tracking-wider">Хавфсизлик ва Кириш</div>
-          <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 space-y-2">
-            <div class="text-slate-300 text-[11px]">Маълумотларни таҳрирлаш фақат Раҳбар тасдиғи билан амалга оширилади.</div>
-            <button onclick="openPasswordModal()" class="w-full py-1.5 bg-gov-coral hover-bg-gov-coral text-white font-bold rounded text-xs transition">
-              🔒 Раҳбар кириши
+          <div class="text-white font-bold text-xs uppercase tracking-wider">Боғланиш ва Хавфсизлик</div>
+          <div class="p-3.5 bg-slate-900 rounded-xl border border-slate-700 space-y-2.5">
+            <div class="text-slate-400 text-[11px]">Бизга боғланиш учун расмий Telegram аккаунт:</div>
+            <a href="https://t.me/m337xxx" target="_blank" class="w-full py-2 bg-sky-600 hover:bg-sky-700 text-white font-extrabold rounded-lg text-xs transition flex items-center justify-center gap-1.5 shadow-sm">
+              <span>✈️</span>
+              <span>Telegram: @m337xxx</span>
+            </a>
+            <button onclick="openPasswordModal()" class="w-full py-1.5 bg-gov-coral hover-bg-gov-coral text-white font-bold rounded-lg text-xs transition">
+              🔒 Раҳбар хонаси (Парол билан)
             </button>
           </div>
         </div>
@@ -1029,6 +1055,8 @@
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
     const RAW_DATA = {"org":"Ўзбекистон Миллий медиа ассоциацияси (ЎзММА)","system":"edo.ijro.uz","report_date":"18.11.2026","executors":[{"id":"exec_1","num":1,"role":"Лойиҳалар билан ишлаш бўлим бошлиғи","person":"УМАРОВ Саидаҳмад","full_title":"Лойиҳалар билан ишлаш бўлим бошлиғи \nУМАРОВ Саидаҳмад","pres_total":6,"pa_total":0,"vm_total":2,"internal_total":11,"total_tasks":19},{"id":"exec_2","num":2,"role":"Аъзолар билан ишлаш бўлим бошлиғи","person":"УСТАБАБАЕВ Санджар","full_title":"Аъзолар билан ишлаш бўлим бошлиғи \nУСТАБАБАЕВ Санджар","pres_total":0,"pa_total":0,"vm_total":7,"internal_total":5,"total_tasks":12},{"id":"exec_3","num":3,"role":"Ҳалқаро ҳамкорлик бўлим бошлиғи","person":"ХАКИМОВ Низом","full_title":"Ҳалқаро ҳамкорлик бўлим бошлиғи \nХАКИМОВ Низом","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":9,"total_tasks":9},{"id":"exec_4","num":4,"role":"Тармоқ таҳлили ва медиа мониторинги бўлим бошлиғи","person":"АЧИЛОВ Фаёз","full_title":"Тармоқ таҳлили ва медиа мониторинги бўлим бошлиғи \nАЧИЛОВ Фаёз","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":8,"total_tasks":8},{"id":"exec_5","num":5,"role":"Маркетинг ва тижорий ҳамкорликни ривожлантириш бўлим бошлиғи","person":"АХМЕДОВ Улуғбек","full_title":"Маркетинг ва тижорий ҳамкорликни ривожлантириш бўлим бошлиғи \nАХМЕДОВ Улуғбек","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":4,"total_tasks":4},{"id":"exec_6","num":6,"role":"Матбуот котиби","person":"ҚУТБИДДИНОВА Нодира","full_title":"Матбуот котиби \nҚУТБИДДИНОВА Нодира","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":3,"total_tasks":3},{"id":"exec_7","num":7,"role":"Бош ҳисобчи","person":"ХАИТОВ Шохруз","full_title":"Бош ҳисобчи \nХАИТОВ Шохруз","pres_total":0,"pa_total":0,"vm_total":0,"internal_total":2,"total_tasks":2}],"tasks":[{"id":"TASK-001","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Фармойиш","doc_info":"Ф-63 06.11.2026","task_text":"Ф-63 1-илова 12-банд: Оммавий ахборот воситаларида янги таҳрирдаги Ўзбекистон Республикаси Конституциясининг мазмун-моҳиятига оид медиатадбирларни (алоҳида медиарежа асосида махсус кўрсатув, пресс-клуб, ток-шоу, интервью, репортаж, видеоролик, радиоэшиттириш, мақола, викторина ва б.) ўтказиш. Давлат телеканаллари белгиси ёнида Конституция байрами белгисини жойлаштириш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-002","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Фармойиш","doc_info":"Ф-63 06.11.2026","task_text":"Ф-63 1-илова 16-банд: Оммавий ахборот воситаларида «Конституция – суверен давлат кафолати», «Конституция – демократик давлат кафолати», «Конституция – ҳуқуқий давлат кафолати», «Конституция – ижтимоий давлат кафолати», «Конституция – дунёвий давлат кафолати» мавзуларида туркум махсус кўрсатув, пресс-клуб, ток-шоу, интервью, репортаж, видеоролик ва радиоэшиттиришларни тайёрлаш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-003","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Президент Администрацияси","doc_info":"10-3030 10.11.2026","task_text":"10-3030 11.1-банд: \"Ўзбекистон зиёлилари кенгаши\"ни ташкил этиш ва ўтказиш бўйича ишлаб чиқилган чора-тадбирлар режаси юзасидан Кенгаш ўтказиладиган жойни (бино) белгилаш ҳамда инфратузилмасини тайёрлаш.","deadline":"10.11.2026","days_diff":-8,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-004","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Президент Администрацияси","doc_info":"10-3030 10.11.2026","task_text":"10-3030 11.2-банд: \"Ўзбекистон зиёлилари кенгаши\"ни ташкил этиш ва ўтказиш бўйича ишлаб чиқилган чора-тадбирлар режаси юзасидан Кенгаш ўтказиладиган жойни (бино) белгилаш ҳамда инфратузилмасини тайёрлаш. Бинони сифатли овоз кучайтириш, замонавий ЛEД экранлар ва интернет алоқаси (хорижий ватандошлар билан видеоконференц алоқа учун ҳам) билан жиҳозлаш.","deadline":"10.11.2027","days_diff":357,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-005","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Президент Администрацияси","doc_info":"10-3030 10.11.2026","task_text":"10-3030 11.3-банд: \"Ўзбекистон зиёлилари кенгаши\"ни ташкил этиш ва ўтказиш бўйича ишлаб чиқилган чора-тадбирлар режаси юзасидан Кенгаш ўтказиладиган жойни (бино) белгилаш ҳамда инфратузилмасини тайёрлаш. Шуъба хоналарини (ҳар бири 70-100 ўринли) микрофонлар, проектор ёки экран, котиб учун компьютер, шуъба номи ёзилган кўрсаткич ва бошқа зарур жиҳозлар билан таъминлаш.","deadline":"10.11.2028","days_diff":723,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-006","sheet_source":"С.Умаров (19 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Президент Администрацияси","doc_info":"10-3030 10.11.2026","task_text":"10-3030 11.4-банд: \"Ўзбекистон зиёлилари кенгаши\"ни ташкил этиш ва ўтказиш бўйича ишлаб чиқилган чора-тадбирлар режаси юзасидан Кенгаш ўтказиладиган жойни (бино) белгилаш ҳамда инфратузилмасини тайёрлаш. Бинони функционал ҳудудларга ажратиш ва йўналиш кўрсаткичлари билан белгилаш.","deadline":"10.11.2029","days_diff":1088,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-007","sheet_source":"С.Умаров (19 та)","cat":"ХДФУ хатлар","doc_type":"Вазирлар Маҳкамаси","doc_info":"24-3079 23.10.2026","task_text":"24/1-3550-хдфу сон «Лотин ёзувига асосланган ўзбек алифбосини жорий этиш тўғрисида»ги Қонуннинг мазмун-моҳиятини кенг ёритиш бўйича тасдиқлаган медиа-режа ижро учун қабул қилинсин (Ўзбекистон Республикаси Президенти Администрациясининг 23.10.2026 й., 24-3079хдфу-сон хати). 2. Медиа-режада белгиланган вазифаларнинг ўз вақтида ва сифатли бажарилиши таъминласин ҳамда амалга оширилган ишлар бўйича ҳар ой якунида Ўзбекистон Республикаси Президенти Администрациясига ахборот киритиб борилсин. Ғ.Мирзаев 2026 йил 27-октабр №24/1-3550","deadline":"30.11.2026","days_diff":12,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-008","sheet_source":"С.Умаров (19 та)","cat":"ХДФУ хатлар","doc_type":"Вазирлар Маҳкамаси","doc_info":"24-3079 23.10.2026","task_text":"24-3079-хдфу-сон \"Лотин ёзувига асосланган ўзбек алифбосини жорий этиш тўғрисида\"ги Қонуннинг мазмун-моҳияти ва аҳамияти, янги алифбонинг афзалликлари ҳамда унга босқичма-босқич ўтиш тартибини кенг ёритиш бўйича медиарежа тасдиқланди. Вазирлар Маҳкамаси, Таълим ва илм-фан вазирлиги, Фанлар академияси ҳамда бошқа давлат органлари ва ташкилотларга мазкур медиарежа ўз вақтида ва сифатли бажарилишини алоҳида назоратга олиш, Оммавий коммуникациялар масалалари бўйича марказга натижалари юзасидан Коммуникациялар департаментига умумий ҳисобот киритиш топширилади. Коммуникациялар департаменти бошлиғи - Президент матбуот котиби Ш. Асадов","deadline":"30.11.2026","days_diff":12,"is_overdue":false,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-009","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"4.1-банд: Ассоциациянинг устувор йўналишлари бўйича лойиҳа портфелини шакллантириш.","deadline":"25.09.2026","days_diff":-54,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-010","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"5-банд: Ижтимоий-маърифий йўналишдаги медиа лойиҳаларни Ассоциацияга аъзо теле ва радиоканаллар орқали буюртма асосида ишлаб чиқиш ва молиялаштириш механизмини жорий этиш","deadline":"25.09.2026","days_diff":-54,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-011","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"17.3-банд: Клуб фаолиятини йўлга қўйиш ва аъзолари билан учрашув ташкил қилиш.","deadline":"30.09.2026","days_diff":-49,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-012","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"8.1-банд: уч кун муддатда ўзбек тили луғати ўзгараётганлиги муносабати билан аъзо ташкилотларнинг муҳаррирлари учун семинар ташкил этиш бўйича таклифини тақдим этиш;","deadline":"21.10.2026","days_diff":-28,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-013","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"8.2-банд: ўзгараётганлиги муносабати билан аъзо ташкилотларнинг муҳаррирлари учун семинар ташкил этиш бўйича таклифини тақдим этиш;","deadline":"21.10.2026","days_diff":-28,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-014","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-015","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"4.2-банд: Миллий ва халқаро грантларда иштирок этиш учун лойиҳалар тайёрлаш амалиётини жорий этиш.","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Хакимов Низом \nУмаров Саидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-016","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-017","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"15.1-банд: Лойиҳа концепциясини ишлаб чиқиш, номзодлар рўйхатини шакллантириш, комиссия таркиби ва баҳолаш мезонларини ишлаб чиқиш.","deadline":"05.11.2026","days_diff":-13,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-018","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"15-банд: «Ренессанс» миллий мукофоти лойиҳасини ташкил этиш","deadline":"05.11.2026","days_diff":-13,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-019","sheet_source":"С.Умаров (19 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"8.5-банд: 2026 йил 6 ноябрь кунига қадар ҳамкорлар билан амалга ошириладиган камида 5 та янги креатив лойиҳа ғояси, қиймати ва муддати билан тақдим этиш;","deadline":"06.11.2026","days_diff":-12,"is_overdue":true,"executor":"Умаров Сайидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-020","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2026","task_text":"ВМҚ-202 Илова 41-банд: Ижтимоий ҳимояга муҳтож аҳоли қатламлари, шу жумладан, ёшлар, хотин-қизлар, ногиронлиги бўлган шахслар, кам таъминланган оилалар ва ишсиз фуқаролар учун қонунчиликда назарда тутилган ижтимоий имтиёзлар, моддий ёрдам турлари, нафақалар, ишсизликдан ҳимояланиш механизмлари, вақтинчалик иш билан таъминлаш имкониятлари ҳамда ижтимоий ёрдам олиш тартиби ҳақида аҳолининг хабардорлигини ошириш мақсадида комплекс медиа маҳсулотлар тайёрлаш ва кенг оммага етказиш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-021","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2027","task_text":"ВМҚ-202 Илова 44-банд: Хорижий давлатларда меҳнат қилиш истагида бўлган фуқаролар, айниқса ёшлар ўртасида қонуний меҳнат миграциясининг ҳуқуқий асослари, хорижда вақтинча меҳнат фаолиятини амалга оширишнинг белгиланган тартиби, фаолият юритиш учун рухсатномалар ва визаларни расмийлаштириш бўйича оммавий ахборот воситаларида ва ижтимоий тармоқларда кенг тушунтириш ишларини олиб бориш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-022","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2028","task_text":"ВМҚ-202 Илова 45-банд: Фуқаролар ўртасида юзага келадиган ўзаро муаммоларни фақат қонунда белгиланган ҳуқуқий воситалар орқали ҳал этиш, низоларни зўравонлик, таҳдид, босим ёки ўзбошимчалик йўли билан эмас, балки маданиятли мулоқот ва қонуний тартибда ҳал қилиш маданиятини тарғиб этишга қаратилган видеороликлар, инфографикалар ва ижтимоий тармоқлар учун визуал контентларни тайёрлаш ҳамда оммавий ахборот воситалари ва ижтимоий тармоқларда мунтазам тарқатиб бориш. Мазкур медиа маҳсулотларда ўзгаларнинг шаъни, қадр-қиммати, шахсий ҳаёти, мулки ва эркинликларига ҳурмат билан муносабатда бўлиш, шунингдек ҳуқуқбузарлик ва ўзбошимчалик оқибатлари, уларнинг маъмурий ёки жиноий жавобгарликка сабаб бўлиши ҳақида фуқароларга содда ва тушунарли тарзда маълумот бериш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-023","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2029","task_text":"ВМҚ-202 Илова 46-банд: Ташқи меҳнат миграцияси соҳасида учрайдиган ҳуқуқбузарликлар, жумладан, одам савдоси, фирибгарлик ҳолатлари ва мажбурий меҳнатга жалб этилиш каби хавф-хатарлар тўғрисида аҳолига, айниқса ёшларга огоҳлантирувчи ва тушунтирувчи ахборотлар тақдим этиш, уларда ҳуқуқий онг, ҳушёрлик ва хавфсизлик маданиятини шакллантиришга қаратилган тарғибот материалларини тайёрлаш ва манзилли тарқатиш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-024","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Қарори","doc_info":"ВМҚ-202 24.04.2030","task_text":"ВМҚ-202 Илова 63-банд: Тўйлар, оилавий маросимлар ва бошқа оммавий тадбирларни ўтказишда исрофгарчиликка йўл қўймаслик, миллий қадрият ва урф-одатларни асраб-авайлаган ҳолда соддалик ва тежамкорликни тарғиб этиш, ёшлар онгида масъулиятли истеъмол маданиятини шакллантиришга қаратилган телекўрсатувлар ва ижтимоий видеороликлар тайёрлаш. Мазкур медиа маҳсулотларда оилавий ҳаётга оид анъаналар, маросимларда меъёр ва одобни сақлаш, ортиқча дабдаба ва рақобатга берилмасликнинг ижтимоий аҳамияти ёритиш.","deadline":"25.11.2026","days_diff":7,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-025","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Баёни","doc_info":"ВМ 21/26-218 29.10.2026","task_text":"ВМ 21/26-218 14-банд: Ўзбекистон Миллий телерадиокомпанияси (Жўрабоев), Ўзбекистон Миллий ахборот агентлиги (Кўчимов), Ўзбекистон Миллий медиа ассоциацияси (Тожиев)га республикадаги хусусий телекоммуникация тармоқлари билан биргаликда ис газидан заҳарланиш, чақнаш ва ёнғинларнинг олдини олиш, уларнинг аянчли оқибатлари тўғрисидаги таъсирчан материаллар тайёрлаб, кенг ёритиш ва оммабоп вақтларда мунтазам равишда эфирга узатиб бориш тавсия этилсин. Бунда аҳоли хонадонларида фойдаланиладиган иситиш воситаларининг созлиги ва дудбуронларни тозалаш истеъмолчининг мажбурияти эканига урғу бериш, бу ишларда аудиторияси катта бўлган блогерларнинг ҳамда хусусий телеканаллар имкониятларидан ҳам унумли фойдаланиш назарда тутилсин.","deadline":"28.11.2026","days_diff":10,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-026","sheet_source":"С.Устабабаев (12 та)","cat":"Юқори турувчи ташкилот ҳужжатлари","doc_type":"Вазирлар Маҳкамаси Баёни","doc_info":"ВМ 22/26-196 30.09.2026","task_text":"ВМ-22/26-196 26-банд: Ўзбекистон Миллий телерадиокомпанияси (Жўрабоев), Ўзбекистон Миллий ахборот агентлиги (Кўчимов), Оммавий ахборот воситалари учун контент тайёрлаш маркази (Аҳмедов) «Дунё» ахборот агентлиги (Қўчқорова) ҳамда Ўзбекистон Миллий медиа ассоциацияси (Тожиев) Ярмаркага тайёргарлик кўриш ва уни ўтказиш жараёнларини маҳаллий ва хорижий оммавий ахборот воситаларида кенг ёритиш чораларини кўрсин.","deadline":"30.11.2026","days_diff":12,"is_overdue":false,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-027","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"8-банд: Миллий телерадиокомпания (МТРК) ва Кинематография агентлиги билан ҳамколикда улардаги мавжуд миллий фильмлар, сериаллар ҳамда бошқа ижтимоий-маданий дастурларни Ассоциациямиз аъзоларига етказиб бериш орқали эфирга узатиш тизимини йўлга қўйиш","deadline":"25.08.2026","days_diff":-85,"is_overdue":true,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-028","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"8.1-банд: 1. Ҳамкорлик доирасида устувор йўналишлар, йиллик мавзули режа (контент режаси) ишлаб чиқиш.","deadline":"25.08.2026","days_diff":-85,"is_overdue":true,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-029","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-030","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-031","sheet_source":"С.Устабабаев (12 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"4.1-банд: рўйхат асосида потенциал аъзолар ва ҳар бири билан учрашув жадвалини ишлаб чиқиш","deadline":"06.11.2026","days_diff":-12,"is_overdue":true,"executor":"Устабабаев Санжар","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-032","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"16.2-банд: 1. «Ўзбекистон–Туркия медиа форуми»ни ўтказиш концепцияси ва ташкилий дастурини ишлаб чиқиш.","deadline":"20.08.2026","days_diff":-90,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-033","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"19-банд: Ациа-Паcифиc Броадcастинг Унион (АБ-У) ва Ациа-Паcифиc Институте фор Броадcастинг Девелопмент (АИБД) билан ҳамкорликни фаоллаштириш","deadline":"30.09.2026","days_diff":-49,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-034","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"16.3-банд: Ўзбекистон ва Туркиянинг етакчи ОАВлари ўртасида тарихий сериаллар, маданий-маърифий кўрсатувлар ҳамда бошқа медиа маҳсулотлар алмашинуви механизмларини йўлга қўйиш бўйича амалий чораларни кўриш.","deadline":"05.10.2026","days_diff":-44,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-035","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"7.1-банд: халқаро ташкилотлар билан имзоланган ҳамкорлик меморандумлари ижросини таҳлил қилсин ҳамда амалга оширилиши зарур бўлган вазифалар тўғрисида ахборот киритиш;","deadline":"23.10.2026","days_diff":-26,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-036","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-037","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"21-банд: Ўзбекистонда йиллик халқаро медиа ва технологиялар форумини ташкил этиш бўйича ташкилий асос яратиш","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-038","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"4.2-банд: Миллий ва халқаро грантларда иштирок этиш учун лойиҳалар тайёрлаш амалиётини жорий этиш.","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Хакимов Низом \nУмаров Саидаҳмад","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-039","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-040","sheet_source":"Н.Хакимов (9 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"7-банд: бир ой муддатда Ассоциациянинг 2027 йилда халқаро ташкилотлар билан алоқаларини ривожлантириш ва хорижий грантларни жалб этиш мақсадида лойиҳалар концепциясини ишлаб чиқиш;","deadline":"16.11.2026","days_diff":-2,"is_overdue":true,"executor":"Хакимов Низом","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-041","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"12.2-банд: 2. Янгилик контентини автоматлаштирилган тарзда йиғиш, таҳлил қилиш, таржима қилиш, модерация қилиш ва веб-кабинетлар орқали етказиб бериш платформасини яратиш.","deadline":"25.08.2026","days_diff":-85,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-042","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"12-банд: «Нуқтаи Назар» сунъий интеллект платформасини ишлаб чиқиш","deadline":"25.08.2026","days_diff":-85,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-043","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"7-банд: Миллий медиа ассоциацияси томонидан аъзо ҳудудий телеканаллар манфаатларини кўзлаб муаллифлик ҳуқуқи эгалари билан марказлашган музокаралар олиб бориш ҳамда коллектив лицензиялаш (умумий лицензия) тизимини жорий этиш.","deadline":"27.08.2026","days_diff":-83,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-044","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"7.1-банд: 1. Ҳудудий телеканалларнинг муаллифлик ҳуқуқи объектларидан фойдаланиш эҳтиёжларини ўрганиш ҳамда лицензиялашни талаб этувчи контент турлари бўйича таҳлил ўтказиш.","deadline":"27.08.2026","days_diff":-83,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-045","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"7.2-банд: Ассоциацияси томонидан ҳудудий телеканаллар манфаатларини ифодаловчи ваколатли вакил сифатида маҳаллий ва хорижий муаллифлик ҳуқуқи эгалари ҳамда уларнинг вакиллари билан марказлашган музокаралар олиб бориш.","deadline":"23.09.2026","days_diff":-56,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-046","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"12.3-банд: 3. Платформани синовдан ўтказиш ва аъзо медиа субъектлар фаолиятига босқичма-босқич жорий этиш.","deadline":"25.09.2026","days_diff":-54,"is_overdue":true,"executor":"Ачилов Фаёз","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-047","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-048","sheet_source":"Ф.Ачилов (8 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-049","sheet_source":"У.Ахмедов (4 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-050","sheet_source":"У.Ахмедов (4 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-03/5 16.11.2026","task_text":"10-банд: Ассоциациянинг янги таҳрирдаги аъзолик шартномаси концепциясини кўриб чиқсин ва уни такомиллаштириш бўйича аниқ таклифларни тақдим этсин.","deadline":"30.10.2026","days_diff":-19,"is_overdue":true,"executor":"Мирзаев Бекзод","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-051","sheet_source":"У.Ахмедов (4 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-052","sheet_source":"У.Ахмедов (4 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"10.1-банд: Ассоциация ҳақида қисқа маълумот, аъзоларнинг умумий қамрови, ҳомий ташкилотларга фойдаси, ҳамкорлик пакетлари, флаер ва тақдимотни тайёрлаш;","deadline":"13.11.2026","days_diff":-5,"is_overdue":true,"executor":"Ахмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-053","sheet_source":"Н.Қутбиддинова (3 та)","cat":"Ички ҳужжатлар","doc_type":"Чора-тадбирлар дастури","doc_info":"01-06/1 03.06.2026","task_text":"10-банд: \"Матбуот котиблари клуби\"ни ташкил этиш","deadline":"25.09.2026","days_diff":-54,"is_overdue":true,"executor":"Қутбиддинова Нодира","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-054","sheet_source":"Н.Қутбиддинова (3 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-055","sheet_source":"Н.Қутбиддинова (3 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-056","sheet_source":"Ш.Хаитов (2 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16-банд: ижро учун! Ассоциациянинг 2027 йилги иш режаси учун креатив ва замонавий таклифларни аниқ кўрсаткич, муддат ва смета билан тақдим этсин;","deadline":"26.10.2026","days_diff":-23,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"},{"id":"TASK-057","sheet_source":"Ш.Хаитов (2 та)","cat":"Ички ҳужжатлар","doc_type":"Баён","doc_info":"01-04/4 16.10.2026","task_text":"16.1-банд: 2026 йил 31-октабр кунига қадар таклифлар медианинг замонавий чақириқлари ва келажакда мамлакатга медиа ва ОАВ йўналишида нима кераклигига асосланиши инобатга олинсин;","deadline":"31.10.2026","days_diff":-18,"is_overdue":true,"executor":"Ачилов Фаёз \nҚутбиддинова Нодира Хакимов Низом \nУстабабаев Санжар \nҲайитов Шохруз \nУмаров Саидаҳмад \nАхмедов Улуғбек","status":"Бажарилмаган","daily_note":"","last_update":"18.11.2026"}]};
+    const BIRTHDAYS_DATA = {"ЯНВАРЬ":{"members_and_vips":[{"num":"1","name":"БОЗОРОВ Хуршид Бахшиллоевич","date":"01 . 01 .19 85","role":"“Istiqlol TV”, “Navoiy TV” Бош директори, та ъсисчиси"},{"num":"2","name":"БЕКМУРОДОВ Бобур Мансурович","date":"05 .0 1 .19 85","role":"“ Yuksalish ” Миллий ҳаракати раиси"},{"num":"3","name":"ИСМОИЛОВ Нуриддин Мўйдинхонович","date":"20 .0 1 .19 59","role":"Олий Мажлис Қонунчилик палатаси Спикери"},{"num":"4","name":"БЕКНАЗАРОВ Камолиддин","date":"27 январь","role":"GROSS с уғурта компаниясининг маркетинг бўйича директори"},{"num":"5","name":"АХМЕДОВ Шухрат Якубжанович","date":"31 .0 1 .19 67","role":"“ZO’R TV” таъсисчиси"}],"ozmma_staff":[{"num":"1","name":"СИДДИҚОВ Абдусалом Абдумаликович","date":"09 .0 1 .19 84","role":"Ўзбекистон Миллий медиа ассоциацияси Тармоқ таҳлили ва медиа мониторинг бўлими бошлиғи"},{"num":"2","name":"УМАРОВ Сайидахмад Расулович","date":"15 .0 1 .19 86","role":"Ўзбекистон Миллий медиа ассоциацияси Лойиҳалар билан ишлаш бўлими бошлиғи"},{"num":"3","name":"ҚЎЧҚОРОВ Баҳодир Холбек ўғли","date":"16 .0 1 . 1995","role":"Ўзбекистон Миллий медиа ассоциацияси Аҳборот -таҳлил ва ижро назорати бўлими бошлиғи"}]},"ФЕВРАЛЬ":{"members_and_vips":[{"num":"1","name":"САФОЕВ Содиқ Салихович","date":"03 . 02 .19 54","role":"Олий Мажлис Сенатининг ўринбосари"},{"num":"2","name":"“Ellikqal’a TV” ташкил топган кун","date":"03 .0 1 . 2003","role":""},{"num":"3","name":"АБДУРАХМОНОВ Одил Қаландарович","date":"06 . 02 .19 78","role":"Ўзбекистон Республикаси Президенти Администрацияси Ижтимоий ривожлантириш бўлими мудири"},{"num":"4","name":"ҚУРОНБОЕВ Қаҳрамон Қўчқорович","date":"2 0 .0 2 .19 70","role":"Ўзбекистон маҳаллалари уюшмаси раиси"},{"num":"5","name":"ДЖУРАЕВ Равшанхон Эргашевич","date":"23 . 02 .19 71","role":"“ Узрепорт ТВ ” Бош директори"}],"ozmma_staff":[{"num":"1","name":"МЎМИНОВ Алибек Улуғбек ўғли","date":"04 .0 2 . 2002","role":"Ўзбекистон Миллий медиа ассоциацияси График дизайнер"},{"num":"2","name":"АХТАМОВА Назокатпошшо Акмал қизи","date":"28 .0 2 . 2002","role":"Ўзбекистон Миллий медиа ассоциацияси Ижро-назорати ва ахборот-таҳлил бўлими бош мутаҳассиси"}]},"МАРТ":{"members_and_vips":[{"num":"1","name":"“ ZO’R TV” ташкил топган кун","date":"01 . 03 . 2017","role":""},{"num":"2","name":"ХОДЖАЕВ Асадбек Азатбекович","date":"03.0 3 .1970","role":"Ўзбекистон Республикаси Президенти Администрацияси ҳузуридаги Ахборот ва оммавий коммуникациялар агентлиги (АОКА) директори"},{"num":"3","name":"“Ishonch TV” ташкил топган кун","date":"06 . 03 . 1997","role":""},{"num":"4","name":"ХАСАНОВ Отабек Абдурашидович","date":"09 . 03 . 1985","role":"Маънавият ва маърифат маркази директори"},{"num":"5","name":"ХАИТОВ Актам Ахмадович","date":"12 . 03 . 1974","role":"Ўз бекистон Ли берал Де мократик П артияси раиси"},{"num":"6","name":"ҚОДИРОВ Алишер Келдиевич","date":"12 . 03 . 1975","role":"Миллий Тикланиш партияси раиси"},{"num":"7","name":"САИДОВ Сирожиддин Салоҳович","date":"15 . 03 .1958","role":"Ўзбекистон Республикаси Ëзувчилар уюшмаси раиси"},{"num":"8","name":"МАХАМАТОВИЧ Зайниддин Низомхўжаев","date":"19 . 03 . 1954","role":"Ўзбекистон Республикаси Марказий сайлов комиссияси раиси"}],"ozmma_staff":[{"num":"1","name":"БЕКМУРОДОВ Ҳусан Мансур ўғли","date":"01 .0 3 . 1991","role":"Ўзбекистон Миллий медиа ассоциацияси Бош директорининг молия ва маркетинг масалалари бўйича ўринбосари"},{"num":"2","name":"Ҳусанов Исмоил Ғайбулла ўғли","date":"09 .0 3 . 2004","role":"Ўзбекистон Миллий медиа ассоциацияси Бошқарув раиси ёрдамчиси"},{"num":"3","name":"АЧИЛОВ Файйоз Шерқулович","date":"30 .0 3 . 1992","role":"Ўзбекистон Миллий медиа ассоциацияси Матбуот котиби"}]},"АПРЕЛЬ":{"members_and_vips":[{"num":"1","name":"“Sevimli TV” ташкил топган кун","date":"01 . 04 . 2017","role":""},{"num":"2","name":"“Muloqot TV” ташкил топган кун","date":"02 . 04 . 1991","role":""},{"num":"3","name":"ПУЛАТОВА Наима Игамраимовна","date":"07 . 04 . 1988","role":"“ Renessans TV” Бош директори"},{"num":"4","name":"АРИПОВ Элдор Тахирович","date":"09 . 04 . 1974","role":"Ҳавфсизлик Кенгаши котиби биринчи ўринбосари"},{"num":"5","name":"ҚОДИРОВ Бегзод Абдуганиевич","date":"10 . 04 . 1990","role":"“ Ishonch TV” Бош директори"},{"num":"6","name":"“ Renessans TV” ташкил топган кун","date":"15 . 04 . 2021","role":""},{"num":"7","name":"САИДОВ Бахтиёр Одилович","date":"22 . 04 . 1981","role":"Ўзбекистон Республикаси Ташқи ишлар вазири"}],"ozmma_staff":[{"num":"1","name":"МАМАТМУРОДОВ А Наргиза Норбутаевна","date":"16 .0 4 . 1988","role":"Ўзбекистон Миллий медиа ассоциацияси Кадрлар билан ишлаш бўйича бош мутахассис"},{"num":"2","name":"Тохирова Мадинабону Умид қизи","date":"17 .0 4 . 2006","role":"Ўзбекистон Миллий медиа ассоциацияси Миллий медиани ривожлантириш ва ассоциация а ъ золари билан ишлаш бўлими етакчи мутахас с ис и"},{"num":"3","name":"АБЗАЛОВ Жаҳонгир Махмудович","date":"30 .0 4 . 1984","role":"Ўзбекистон Миллий медиа ассоциацияси Хўжалик ишлари мудири"}]},"МАЙ":{"members_and_vips":[{"num":"1","name":"АСАДОВ Шерзод Икромович","date":"04 . 05 . 1981","role":"Ўзбекистон Республикаси Президенти Администрациясининг Коммуникациялар департаменти раҳбари Ўзбекистон Республикаси Президентининг Матбуот котиби"},{"num":"2","name":"“ Ruhsor TRK ” ташкил топган кун","date":"07 . 05 . 2009","role":""},{"num":"3","name":"АХМЕДОВ Қобулжон Холиқович","date":"13 . 05 . 1984","role":"Ўзбекистон Республикаси Президенти Администрацияси ҳузуридаги ОАВ учун контент тайёрлаш маркази директори «Mening yurtim» (MY5) телеканали Бош директори"},{"num":"4","name":"ҚЎЧИМОВ Абдусаид Кўчимович","date":"15 . 05 . 1951","role":"Ўзбекистон Миллий ахборот агентлиги (ЎзА) Бош директори"},{"num":"5","name":"АБДУЛЛАЕВ Илхом Зоирович","date":"18 . 05 . 1965","role":"Ўзбекистон Республикаси Олий Мажлиси Қонунчилик палатасининг Инновацион ривожланиш, ахборот сиёсати ва ахборот технологиялари масалалари қўмитаси раиси."},{"num":"6","name":"АРИПОВ Абдулла Ниғматович","date":"24 . 05 . 1961","role":"Ўзбекистон Республикасининг Бош вазири"},{"num":"7","name":"НИЗОМИТДИНОВ Зайнилобиддин Шахобиддинович","date":"26 . 0 5 . 1974","role":"Тошкент вилояти Бекобод тумани ҳокими"},{"num":"8","name":"ШЕРЗОДХОН Қудратхўжа","date":"26 . 0 5 . 1974","role":"Ўзбекистон Журналистика ва оммавий коммуникациялар у ниверситети ректори"},{"num":"9","name":"БУРХОНОВ Акмал Эшондедаевич","date":"28 . 0 5 . 1981","role":"Ўзбекистон Республикаси Коррупцияга қарши курашиш агентлиги директори"}],"ozmma_staff":[{"num":"1","name":"МАХКАМОВ Мақсуд Махмудович","date":"06 .0 5 . 2002","role":"“Aksent.uz” ОАВ бошқарувчиси"}]},"ИЮНЬ":{"members_and_vips":[{"num":"1","name":"ХУДОЙБЕРДИЕВ Хушнуд Ғайрат ўғли","date":"07 .06.19 89","role":"Президент администрацияси коммуникациялар департаменти раҳбари ўринбосари"},{"num":"2","name":"САБИРОВ Улуғбек Ахмедович","date":"11.06.1962","role":"“8-TV” таъсисчиси"},{"num":"3","name":"ХАСАНОВ Сардор Саидович","date":"27.06.1969","role":"“S-Iqbol-TV” таъсисчиси"}],"ozmma_staff":[{"num":"1","name":"ШОВАЛИЕВ Шомузаффар Искандар ўғли","date":"01 .0 6 . 2004","role":"Ўзбекистон Миллий медиа ассоциацияси Миллий медиани ривожлантириш ва аъзолар билан ишлаш бўлими бош мутахассиси"},{"num":"2","name":"БИТЮК Инна","date":"04 .0 6 . 1988","role":"Ўзбекистон Миллий медиа ассоциацияси Бошқарув раиси маслаҳатчиси"},{"num":"3","name":"УМАРОВ Рахматжон Илхомжон ўғли","date":"20 .0 6 . 1992","role":"Ўзбекистон Миллий медиа ассоциацияси Бош директори"},{"num":"4","name":"ТИЛЛАЕВА Сарвиноз Жамол қизи","date":"23 .0 6 . 2005","role":"Ўзбекистон Миллий медиа ассоциацияси Лойиҳалар билан ишлаш бўлими этакчи мутаҳассиси"}]},"ИЮЛЬ":{"members_and_vips":[{"num":"1","name":"КАТТАХАНОВА Дилноза Собир қизи","date":"02.07.1991","role":"Ўзбекистон Республикаси Бош вазирининг ўринбосари"},{"num":"2","name":"ХУРСАНОВ Абдулла Холмуродович","date":"09 .0 7 .19 66","role":"“Олмалиқ КМК” АЖ Бошқарув раиси"},{"num":"3","name":"САЪДУЛЛАЕВ Алишер Зафарович","date":"11 .0 7 .19 94","role":"Ўзбекистон Республикаси Ëшлар ишлари агентлиги директори"},{"num":"4","name":"ЛАТИПЖАНОВ Энвер Нўманджанович","date":"21 .0 7 .19 81","role":"“ЗЎР ТВ” Бош директори"},{"num":"5","name":"ХОДЖАЕВ Жамшид Абдухакимович","date":"21. 12 .1979","role":"Ўзбекистон Республикаси Бош вазирининг ўринбосари"},{"num":"6","name":"НОРБОЕВА Танзила Камаловна","date":"24 .0 7 .19 57","role":"Ўзбекистон Республикаси Олий мажлиси Сенати раиси"},{"num":"7","name":"СЎПИБЕКОВ Низомиддин Икрамиддинович","date":"27 .0 7 .19 78","role":"“ Руҳсор ТВ” телерадиоканали таъсисчиси"},{"num":"8","name":"МИРЗАЕВ Жалолиддин Фахриддин ўғли","date":"28 .0 7 .19 96","role":"“БИЗ ТВ” Бош директори"},{"num":"9","name":"ҚУРБОНОВ Баҳодир Низомович","date":"29 . 07 .1969","role":"Ўзбекистон Республикаси Давлат ҳавфсизлик хизмати раиси"}],"ozmma_staff":[{"num":"1","name":"ШОДМОНОВ Абдусалом Абдусаматович","date":"13 .0 7 . 1974","role":"Ўзбекистон Миллий медиа ассоциацияси Бошқарув раисининг миллий контент ва сунъий интелектни ривожлантириш бўйича маслаҳатчиси"},{"num":"2","name":"МИРЗАЕВ Беҳзод Хамидович","date":"21 .0 7 . 1982","role":"Ўзбекистон Миллий медиа ассоциацияси Ижро аппарати раҳбари"}]},"АВГУСТ":{"members_and_vips":[{"num":"1","name":"АКРАМОВ Музаффар Махкамович","date":"02 .0 8 .19 85","role":"Ўзбекистон Республикаси Президенти ҳузуридаги Бошқарув самарадорлиги агентлиги директорининг ўринбосари"},{"num":"2","name":"АБДУҲАЛИКОВ Фирдавс Фридунович","date":"10 .0 8 .19 63","role":"Ўзбекистондаги Ислом цивилизацияси маркази директори"},{"num":"3","name":"СОДИҚОВ Шухрат Муҳаммаджонович","date":"11 .0 8 .196 9","role":"Ўзбекистон Республикаси Бош вазири котибияти мудири"},{"num":"4","name":"ЭШОНҚУЛОВ Баҳтиёр Умарқулович","date":"15 .0 8 .19 56","role":"“Jizzax-TV” “Baxtiyor- Shaxboz XK” таъсисчиси"},{"num":"5","name":"НАРИМОВ Бекзод Абдувалиевич","date":"2 2 .0 8 .19 84","role":"Ўзбекистон Республикаси Олий Мажлисининг Инсон ҳуқуқлари бўйича вакили (омбудсман) ўринбосари"},{"num":"6","name":"АХМЕДОВ Собиржон Улуғбекович","date":"25 .0 8 .19 94","role":"“Sobir-Media” MCHJ 8 TV Бош директори"},{"num":"7","name":"ХАТАМОВ Гулрухсор Қудратовна","date":"25 .0 8","role":"Ўзбекистон Республикаси Президенти Администрацияси Коммуникациялар департаменти бошлиғининг биринчи ўринбосари"},{"num":"8","name":"ҚОСИМОВ Ойбек Омилович","date":"26 .0 8 .19 80","role":"Ўзбекистон Республикаси Миллий олимпия қўмитаси (МОҚ) Бош котиби ."},{"num":"9","name":"МАМАДАЛИЕВ Ботиржон Маҳмуджонович","date":"31 .0 8 .19 84","role":"“ Taraqqiyot ” телеканали таъсисчиси"}],"ozmma_staff":[{"num":"1","name":"Қутбиддинова Нодирахон Ойбек қизи","date":"09 .0 8 . 2004","role":"Ўзбекистон Миллий медиа ассоциацияси Тармоқ ва медиа мониторинг болими етакчи мутахассис"},{"num":"2","name":"АХМЕДОВ Улуғбек Раҳматович","date":"11 .0 8 . 1972","role":"Ўзбекистон Миллий медиа ассоциацияси Маркетинг бўлими бош мутахассиси"}]},"СЕНТЯБРЬ":{"members_and_vips":[{"num":"1","name":"“ Jizzax Tv ”","date":"01.09.1992","role":"“Jizzax Tv” ташкил топган кун"},{"num":"2","name":"ҲИДОЯТОВ Бекзод Шавкатович","date":"04.09.1990","role":"Ўзбекистон Республикаси Бош вазирининг матбуот котиби"},{"num":"3","name":"“S- Iqbol Tv ”","date":"04.09.2006","role":"“S- Iqbol Tv ” ташкил топган сана"},{"num":"4","name":"АТАБАЕВ Элёрбек Баҳтиёр ўғли","date":"05.09.1992","role":"“ Toʻrtkoʻl -TTV” Бош директори"},{"num":"5","name":"ҚУРБОНОВА Азиза Абдусабитовна","date":"11.09.1988","role":"Ўзбекистон Республикаси Президенти Администрацияси Коммуникациялар департаменти бошлиғининг биринчи ўринбосари"},{"num":"6","name":"ҚОДИРОВ Абдуғани Мамаримович","date":"12.09.1960","role":"“ Ishonch-Tv ” таъсисчи"},{"num":"7","name":"АЛЛАМЖОНОВ Комил Исмоилович","date":"18.09.1984","role":"Ўзбекистон Республикаси Президенти Администрацияси раҳбари ўринбосари"},{"num":"8","name":"ТОШҚУЛОВ Акбар Джурабаевич","date":"21.09.1971","role":"Ўзбекистон Республикаси Адлия вазири"},{"num":"9","name":"РАДЖАПОВА Гулистон Нураддиновна","date":"29.09.1966","role":"“Ellikqalʼa-Tv” Бош директори"}],"ozmma_staff":[{"num":"1","name":"ТОШХЎЖАЕВ Тўйчивай Абдкмаликович","date":"02 .0 9 . 1984","role":"Ўзбекистон Миллий медиа ассоциацияси Тармоқ маъмури"},{"num":"2","name":"ТОЖИЕВ Одижон Фотиҳжон ўғли","date":"11 .0 9 . 1984","role":"Ўзбекистон Миллий медиа ассоциацияси Бошқаруви раиси"},{"num":"3","name":"БАХРОМБЕКОВ Султонбек Ихтиербек ўғли","date":"16 .0 9 . 199 5","role":"Ўзбекистон Миллий медиа ассоциацияси Бош директори ҳайдовчиси"}]},"ОКТЯБРЬ":{"members_and_vips":[{"num":"1","name":"САФОЕВ Жалол Сатторович","date":"0 3 . 10 .19 60","role":"“Sevimli-Tv” Бош директори"},{"num":"2","name":"МАМАДАЛИЕВА Дилноза Джурақуловна","date":"05. 10 .197 0","role":"“Nasaf-Tv” Бош директори"},{"num":"3","name":"ХАСАНОВ Хусниддин Сардор ўғли","date":"06. 10 .1992","role":"“S-Iqbol-TV” Бош директори"},{"num":"4","name":"САИДОВ Акмал Ҳолматович","date":"09 . 10 .1958","role":"Ўзбекистон Республикаси Олий Мажлис и Қонунчилик палатаси Спикерининг биринчи ўринбосари"},{"num":"5","name":"КАМОЛОВ Давлатбек Камилович","date":"23 . 10 .19 85","role":"“ Navoiy TV” таъсисчиси"}],"ozmma_staff":[{"num":"1","name":"ХАДЖАБЕКОВ Отабек Алишер ўғли","date":"17 . 10 . 2001","role":"Ўзбекистон Миллий медиа ассоциацияси Тармоқ ва медиа мониторинг б ў лими етакчи мутахассис и"}]},"НОЯБРЬ":{"members_and_vips":[{"num":"1","name":"ЭШНИËЗОВ Ғуломжон Реимбаевич","date":"01. 11 .1985","role":"“Amudaryo-Tv” Бош директори"},{"num":"2","name":"МИРЗИËЕВА Саида Шавкатовна","date":"04. 11 .1984","role":"Ўзбекистон Республикаси Президенти ёрдамчиси"},{"num":"3","name":"ЙЎЛДОШЕВ Ниғматилла Тўлқинович","date":"05. 11 .1962","role":"Ўзбекистон Республикаси Бош прокурори"},{"num":"4","name":"АЛИЕВ Заурхан Сухропович","date":"05. 11 .1985","role":"“Dasturxon-Tv” Бош директори"},{"num":"5","name":"БУТУНБАЕВ Тимур Нурйигитович","date":"06. 11 .1986","role":"Ўзбекистон Республикаси Президенти Администрацияси раҳбари ўринбосари"},{"num":"6","name":"МАҲМУДОВА Робахон Анваровна","date":"09. 11 .1958","role":"Ўзбекистон Республикаси Олий суд раиси"},{"num":"7","name":"ПАЛУАНОВА Мнайим Пирназаровна","date":"10. 11 .1977","role":"“Jaslar TV” Бош директори"},{"num":"8","name":"ШЕРМАТОВ Хасан Адхамович","date":"15. 11 .1981","role":"“Muloqot Tv” Бош директори"},{"num":"9","name":"“ Nasaf-Tv ”","date":"22. 11 .1993","role":"Ташкил топилган сана"}],"ozmma_staff":[{"num":"1","name":"УСТАБАБАЕВ Санджар Абдухамидович","date":"01 . 11 . 1983","role":"Ўзбекистон Миллий медиа ассоциацияси Аъзолар билан ишлаш бўлими бошлиғи"},{"num":"2","name":"Фармонова Ирода","date":"04 . 11 . 1995","role":"Ўзбекистон Миллий медиа ассоциацияси Овоза информацион дастури овозлаштириш ходими"},{"num":"3","name":"МАМАТУРДИЕВ Дилшод Неъматович","date":"0 7 . 11 . 1982","role":"Ўзбекистон Миллий медиа ассоциацияси Бош директорининг биринчи ўринбосари"},{"num":"4","name":"ЙЎЛДАШЕВ Ўлмасбек Йигиталиевич","date":"12 . 11 . 2004","role":"Ўзбекистон Миллий медиа ассоциацияси Бош директор ёрдамчиси"},{"num":"5","name":"ХАКИМОВ Низом Ромео ўғли","date":"18 . 11 . 2004","role":"Ўзбекистон Миллий медиа ассоциацияси Халқаро ҳамкорлик бўлими бошлиғи"},{"num":"6","name":"НАЗАРАЛИЕВА Ойдин Зохиджон қизи","date":"25 . 11 . 1995","role":"Ўзбекистон Миллий медиа ассоциацияси ҳисобчиси"}]},"ДЕКАБРЬ":{"members_and_vips":[{"num":"1","name":"АСҚАРОВ Нуриддин Мухаммаджонович","date":"05. 12 .1968","role":"“Ruxsor-Tv” va “Gold uz” Бош директори"},{"num":"2","name":"ГАППАРОВ Ҳайрулло Лутпиллаевич","date":"09. 12 .1971","role":"Ўзбекистон Республикаси Олий Мажлис и Қонунчилик палатас и Экология ва атроф-муҳитни муҳофаза қилиш масалалари қўмитаси раиси"},{"num":"3","name":"ЮНУСОВ Элбек Шавкатжон ўғли","date":"17. 12 .1993","role":"“Vodiy-Tv” Бош директори"},{"num":"4","name":"ИКРОМОВ Адхам Илхомович","date":"2 1 . 12 .1968","role":"Ўзбекистон Республикаси Спорт вазири"}],"ozmma_staff":[{"num":"1","name":"ЖАНКАЕВ Аббос Ўткир ўғли","date":"18 . 12 . 2004","role":"Ўзбекистон Миллий медиа ассоциацияси Лойиҳалар билан ишлаш бўлими этакчи мутаҳассиси"},{"num":"2","name":"МАХКАМОВ Мансур Махмудович","date":"21 . 12 . 1997","role":"Ўзбекистон Миллий медиа ассоциацияси Аҳборот таҳлил бўлими етакчи му тахассиси"}]}};
+
     const ADMIN_PASSWORD = "UZMMA0002";
     let isAdminLoggedIn = localStorage.getItem("ozmma_admin_auth") === "true";
     let pendingActionCallback = null;
@@ -1354,6 +1382,102 @@
       showToast("Журнал тозаланди", "🗑️");
     }
 
+    // ==================== BIRTHDAYS LOGIC ====================
+    let currentSelectedMonth = 'НОЯБРЬ';
+
+    function selectMonth(m) {
+      currentSelectedMonth = m;
+      document.querySelectorAll('.month-pill').forEach(btn => {
+        if (btn.getAttribute('data-month') === m) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      renderBirthdays();
+    }
+
+    function filterBirthdays() {
+      renderBirthdays();
+    }
+
+    function renderBirthdays() {
+      const monthData = BIRTHDAYS_DATA[currentSelectedMonth] || { ozmma_staff: [], members_and_vips: [] };
+      const query = (document.getElementById('birthdaySearchInput').value || '').toLowerCase();
+
+      // Render Staff
+      const staffContainer = document.getElementById('staffBirthdayList');
+      staffContainer.innerHTML = '';
+      
+      const filteredStaff = monthData.ozmma_staff.filter(s => {
+        return (s.name + ' ' + s.role + ' ' + s.date).toLowerCase().includes(query);
+      });
+
+      document.getElementById('staffCountBadge').innerText = filteredStaff.length + ' нафар';
+
+      if (filteredStaff.length === 0) {
+        staffContainer.innerHTML = '<div class="py-6 text-center text-slate-400 text-xs">Ушбу ойда ходимлар туғилган куни йўқ.</div>';
+      } else {
+        filteredStaff.forEach(s => {
+          const isToday = currentSelectedMonth === 'НОЯБРЬ' && s.date.includes('18');
+          const div = document.createElement('div');
+          div.className = `p-3 rounded-2xl border ${isToday ? 'border-amber-400 bg-amber-50/40 shadow-xs' : 'border-slate-100 bg-slate-50/70'} flex items-center justify-between gap-3 text-xs`;
+          div.innerHTML = `
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-10 h-10 rounded-xl ${isToday ? 'bg-amber-500 text-slate-950 font-black' : 'bg-blue-100 text-blue-800 font-bold'} flex items-center justify-center text-xs shrink-0 font-mono">
+                ${s.date.split('.')[0].trim() || '🎂'}
+              </span>
+              <div class="min-w-0">
+                <div class="font-extrabold text-slate-900 truncate flex items-center gap-1.5">
+                  <span>${s.name}</span>
+                  ${isToday ? '<span class="text-[9px] px-1.5 py-0.2 bg-amber-500 text-slate-950 font-black rounded-full uppercase">Бугун!</span>' : ''}
+                </div>
+                <div class="text-[11px] text-slate-500 truncate mt-0.5">${s.role}</div>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400 shrink-0">${s.date}</span>
+          `;
+          staffContainer.appendChild(div);
+        });
+      }
+
+      // Render VIPs
+      const vipContainer = document.getElementById('vipBirthdayList');
+      vipContainer.innerHTML = '';
+
+      const filteredVips = monthData.members_and_vips.filter(s => {
+        return (s.name + ' ' + s.role + ' ' + s.date).toLowerCase().includes(query);
+      });
+
+      document.getElementById('vipCountBadge').innerText = filteredVips.length + ' нафар';
+
+      if (filteredVips.length === 0) {
+        vipContainer.innerHTML = '<div class="py-6 text-center text-slate-400 text-xs">Ушбу ойда туғилган кунлар топилмади.</div>';
+      } else {
+        filteredVips.forEach(s => {
+          const isToday = currentSelectedMonth === 'НОЯБРЬ' && s.date.includes('18');
+          const div = document.createElement('div');
+          div.className = `p-3 rounded-2xl border ${isToday ? 'border-amber-400 bg-amber-50/40 shadow-xs' : 'border-slate-100 bg-slate-50/70'} flex items-center justify-between gap-3 text-xs`;
+          div.innerHTML = `
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-10 h-10 rounded-xl ${isToday ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-200 text-slate-800 font-bold'} flex items-center justify-center text-xs shrink-0 font-mono">
+                ${s.date.split('.')[0].trim() || '🎂'}
+              </span>
+              <div class="min-w-0">
+                <div class="font-extrabold text-slate-900 truncate flex items-center gap-1.5">
+                  <span>${s.name}</span>
+                  ${isToday ? '<span class="text-[9px] px-1.5 py-0.2 bg-amber-500 text-slate-950 font-black rounded-full uppercase">Бугун!</span>' : ''}
+                </div>
+                <div class="text-[11px] text-slate-500 truncate mt-0.5">${s.role}</div>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400 shrink-0">${s.date}</span>
+          `;
+          vipContainer.appendChild(div);
+        });
+      }
+    }
+
     function exportSummaryReport() {
       let csv = 'data:text/csv;charset=utf-8,ID,Hujjat,Deadline,Mas\x27ul,Qarzdorlik,Status\n';
       appState.tasks.forEach(t => {
@@ -1382,6 +1506,7 @@
       filterRegistry();
       renderCabinet(document.getElementById('cabinetExecSelect').value);
       renderAuditLog();
+      renderBirthdays();
     }
 
     window.onload = function() {
