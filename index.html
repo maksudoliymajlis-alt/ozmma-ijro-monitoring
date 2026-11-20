@@ -1624,15 +1624,14 @@
           </div>
           <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
             <span>Масъул: <strong class="text-slate-900">${t.executor.replace(/\n/g, ', ')}</strong></span>
-            ${isDone ? `
-              <button onclick="handleTaskDoneClick('${t.id}')" class="px-3 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg font-bold text-xs shadow-xs transition flex items-center gap-1">
-                <span>↩</span><span>Қайта очиш (Қарздорликка қайтариш)</span>
+            <div class="flex items-center gap-2">
+              <button onclick="setTaskStatus('${t.id}', 'Бажарилди')" class="px-3 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1 ${isDone ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 cursor-default' : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs'}">
+                <span>✓</span><span>Бажарилди</span>
               </button>
-            ` : `
-              <button onclick="handleTaskDoneClick('${t.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-xs shadow-xs transition flex items-center gap-1">
-                <span>✓</span><span>Ечилди / Бажарилди деб ёпиш</span>
+              <button onclick="setTaskStatus('${t.id}', 'Бажарилмаган')" class="px-3 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1 ${!isDone ? 'bg-rose-100 text-rose-800 border border-rose-300 cursor-default' : 'bg-rose-600 hover:bg-rose-700 text-white shadow-xs'}">
+                <span>❌</span><span>Бажарилмади</span>
               </button>
-            `}
+            </div>
           </div>
         `;
         container.appendChild(card);
@@ -1681,61 +1680,63 @@
           </div>
           <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
             <span class="text-slate-500 text-[11px]">Ҳолати: <strong class="${isDone ? 'text-emerald-700 font-extrabold' : isOverdue ? 'text-rose-600 font-bold' : 'text-slate-700'}">${t.status}</strong></span>
-            ${isDone ? `
-              <button onclick="handleTaskDoneClick('${t.id}')" class="px-3 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg font-bold text-xs shadow-xs transition flex items-center gap-1">
-                <span>↩</span><span>Қайта очиш</span>
+            <div class="flex items-center gap-2">
+              <button onclick="setTaskStatus('${t.id}', 'Бажарилди')" class="px-3 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1 ${isDone ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 cursor-default' : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs'}">
+                <span>✓</span><span>Бажарилди</span>
               </button>
-            ` : `
-              <button onclick="handleTaskDoneClick('${t.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-xs shadow-xs transition flex items-center gap-1">
-                <span>✓</span><span>Ечилди / Бажарилди (Қарздан чиқариш)</span>
+              <button onclick="setTaskStatus('${t.id}', 'Бажарилмаган')" class="px-3 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1 ${!isDone ? 'bg-rose-100 text-rose-800 border border-rose-300 cursor-default' : 'bg-rose-600 hover:bg-rose-700 text-white shadow-xs'}">
+                <span>❌</span><span>Бажарилмади</span>
               </button>
-            `}
+            </div>
           </div>
         `;
         container.appendChild(card);
       });
     }
 
+    function setTaskStatus(taskId, newStatus) {
+      const task = appState.tasks.find(t => t.id === taskId);
+      if (!task || task.status === newStatus) return;
+
+      const p = getFormattedDateParts(new Date());
+      task.status = newStatus;
+      task.last_update = `${p.dateStr} ${p.shortTimeStr}`;
+
+      if (newStatus === "Бажарилди") {
+        appState.auditLog.unshift({
+          taskId: taskId,
+          executor: task.executor.replace(/\n/g, ' '),
+          sheet: task.sheet_source,
+          newStatus: "Бажарилди",
+          note: "Бажарилди деб белгиланди (умумий қарздорликдан айирилди).",
+          time: task.last_update
+        });
+        saveState();
+        renderAll();
+        showToast(`${taskId} бажарилди деб ёпилди! Қарздорлик камайди.`, "✅");
+      } else {
+        appState.auditLog.unshift({
+          taskId: taskId,
+          executor: task.executor.replace(/\n/g, ' '),
+          sheet: task.sheet_source,
+          newStatus: "Бажарилмаган",
+          note: "Бажарилмади деб белгиланди (қарздорлик ва статистикага қайтарилди).",
+          time: task.last_update
+        });
+        saveState();
+        renderAll();
+        showToast(`${taskId} бажарилмади деб қайтарилди! Статистика янгиланди.`, "❌");
+      }
+    }
+
     function handleTaskDoneClick(taskId) {
-      // Тўғридан-тўғри дешбордда ишлаш учун парол тўсиғисиз дарҳол бажарилади
-      performMarkDone(taskId);
+      const task = appState.tasks.find(t => t.id === taskId);
+      if (!task) return;
+      setTaskStatus(taskId, task.status === "Бажарилди" ? "Бажарилмаган" : "Бажарилди");
     }
 
     function performMarkDone(taskId) {
-      const task = appState.tasks.find(t => t.id === taskId);
-      if (task) {
-        const wasDone = task.status === "Бажарилди";
-        const p = getFormattedDateParts(new Date());
-        task.last_update = `${p.dateStr} ${p.shortTimeStr}`;
-
-        if (wasDone) {
-          task.status = "Бажарилмаган";
-          appState.auditLog.unshift({
-            taskId: taskId,
-            executor: task.executor.replace(/\n/g, ' '),
-            sheet: task.sheet_source,
-            newStatus: "Бажарилмаган",
-            note: "Қайта очилди (қарздорлик рўйхатига қайтарилди).",
-            time: task.last_update
-          });
-          saveState();
-          renderAll();
-          showToast(`${taskId} қайта очилди! Қарздорликка қўшилди.`, "↩️");
-        } else {
-          task.status = "Бажарилди";
-          appState.auditLog.unshift({
-            taskId: taskId,
-            executor: task.executor.replace(/\n/g, ' '),
-            sheet: task.sheet_source,
-            newStatus: "Бажарилди",
-            note: "Дешборд орқали бажарилди деб ёпилди (умумий қарздан айирилди).",
-            time: task.last_update
-          });
-          saveState();
-          renderAll();
-          showToast(`${taskId} бажарилди деб ёпилди! Умумий қарздан айирилди.`, "✅");
-        }
-      }
+      handleTaskDoneClick(taskId);
     }
 
     // ==================== ADD NEW TASK ====================
