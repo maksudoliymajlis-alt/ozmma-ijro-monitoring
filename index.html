@@ -55,32 +55,29 @@
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
       
       <!-- Brand & Emblem -->
-      <a href="#hero" class="flex items-center gap-3.5 group">
-        <div class="w-12 h-12 rounded-full border-2 border-amber-500/80 p-0.5 shadow-sm bg-white shrink-0 flex items-center justify-center">
-          <img src="assets/logo_ozmma.svg" alt="ЎзММА логотипи" class="w-full h-full object-contain"
-               onerror="this.src='https://api.iconify.design/heroicons:shield-check.svg?color=%231e3a8a'">
-        </div>
-        <div>
-          <div class="text-lg font-extrabold text-slate-900 tracking-tight leading-none group-hover:text-blue-900 transition">
-            ЎзММА
+      <a href="#hero" class="flex items-center gap-3 group">
+        <img src="assets/logo_ozmma.png" alt="ЎзММА логотипи" class="h-11 sm:h-12 w-auto object-contain"
+             onerror="this.src='assets/logo_ozmma.svg'">
+        <div class="hidden sm:block border-l border-slate-200 pl-3">
+          <div class="text-[10px] text-gov-coral font-extrabold tracking-wider uppercase">
+            Ижро Интизоми Мониторинги
           </div>
-          <div class="text-[11px] font-bold text-slate-500 leading-tight mt-0.5">
-            Ўзбекистон Миллий Медиа Ассоциацияси
-          </div>
-          <div class="text-[9px] text-gov-coral font-bold tracking-wider uppercase">
-            Ижро Интизоми ва Топшириқлар Мониторинги
+          <div class="text-[11px] font-bold text-slate-600">
+            edo.ijro.uz назорат портали
           </div>
         </div>
       </a>
 
       <!-- Navigation Menu (BALAD template style) -->
-      <nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-700">
+      <nav class="hidden lg:flex items-center gap-5 text-xs font-bold text-slate-700">
         <a href="#hero" class="hover:text-gov-coral transition">Бош саҳифа</a>
-        <a href="#statistics" class="hover:text-gov-coral transition">Ижро таҳлили</a>
         <a href="#departments" class="hover:text-gov-coral transition">Бўлинмалар</a>
-        <a href="#urgent-tasks" class="hover:text-gov-coral transition">Долзарб топшириқлар</a>
-        <a href="#officials" class="hover:text-gov-coral transition">Масъул раҳбарлар</a>
+        <a href="#urgent-tasks" class="hover:text-gov-coral transition">Топшириқлар</a>
+        <a href="#officials" class="hover:text-gov-coral transition">Раҳбарлар</a>
         <a href="#interactive-registry" class="hover:text-gov-coral transition">Тўлиқ Реестр</a>
+        <a href="#telegram-news" class="text-blue-700 hover:text-gov-coral transition flex items-center gap-1">
+          <span>📢</span><span>Янгиликлар</span>
+        </a>
       </nav>
 
       <!-- Action Button & Search -->
@@ -967,6 +964,39 @@
           <div class="text-xs text-emerald-600 font-bold uppercase">Бажарилганлар</div>
           <div class="text-3xl font-black text-emerald-600 mt-1" id="stripDoneTasks">0</div>
           <div class="text-[11px] text-emerald-700 mt-1" id="stripDonePercent">Бажарилди (0.0%)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 9.5. ASSOCIATION TELEGRAM NEWS (@uzmilliymedia) ==================== -->
+  <section id="telegram-news" class="py-14 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-xl shrink-0">
+            📢
+          </div>
+          <div>
+            <div class="text-gov-coral font-bold text-[10px] uppercase tracking-wider">Расмий Telegram канал</div>
+            <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              Ассоциация Янгиликлари (<span class="text-blue-700">@uzmilliymedia</span>)
+            </h2>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="loadTelegramChannelNews()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+            <span>🔄</span><span>Янгиликларни юклаш</span>
+          </button>
+          <a href="https://t.me/uzmilliymedia" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+            <span>✈️</span><span>@uzmilliymedia каналини очиш</span>
+          </a>
+        </div>
+      </div>
+
+      <div id="tgNewsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="col-span-full p-8 text-center text-slate-400 text-xs bg-slate-50 rounded-2xl border border-slate-200">
+          ⏳ @uzmilliymedia каналидан сўнгги янгиликлар юкланмоқда...
         </div>
       </div>
     </div>
@@ -2036,11 +2066,117 @@
       renderAuditLog();
     }
 
+    async function loadTelegramChannelNews() {
+      const grid = document.getElementById('tgNewsGrid');
+      if (!grid) return;
+      grid.innerHTML = `<div class="col-span-full p-8 text-center text-slate-400 text-xs bg-slate-50 rounded-2xl border border-slate-200">⏳ @uzmilliymedia каналидан сўнгги янгиликлар юкланмоқда...</div>`;
+
+      const targetUrl = 'https://t.me/s/uzmilliymedia';
+      const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
+      ];
+
+      let htmlText = '';
+      for (const pUrl of proxies) {
+        try {
+          const res = await fetch(pUrl);
+          if (res.ok) {
+            const txt = await res.text();
+            if (txt && txt.includes('tgme_widget_message')) {
+              htmlText = txt;
+              break;
+            }
+          }
+        } catch (e) {}
+      }
+
+      if (!htmlText) {
+        grid.innerHTML = `
+          <div class="col-span-full p-6 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="space-y-1">
+              <div class="font-extrabold text-slate-900 text-sm">📢 Ўзбекистон Миллий медиа ассоциацияси расмий канали</div>
+              <p class="text-slate-600">Янгиликларни тўғридан-тўғри Telegram'да ёки веб-кўринишда кузатиб боринг.</p>
+            </div>
+            <a href="https://t.me/s/uzmilliymedia" target="_blank" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shrink-0 transition">
+              📲 Янгиликларни очиш (@uzmilliymedia) &rarr;
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlText, 'text/html');
+      const messages = Array.from(doc.querySelectorAll('.tgme_widget_message_wrap')).reverse().slice(0, 6);
+
+      if (messages.length === 0) {
+        grid.innerHTML = `<div class="col-span-full p-6 text-center text-slate-500 text-xs">Янгиликлар топилмади. <a href="https://t.me/uzmilliymedia" target="_blank" class="text-blue-600 underline font-bold">@uzmilliymedia</a></div>`;
+        return;
+      }
+
+      grid.innerHTML = '';
+      messages.forEach(wrap => {
+        const msgEl = wrap.querySelector('.tgme_widget_message');
+        const postPath = msgEl ? msgEl.getAttribute('data-post') : '';
+        const postUrl = postPath ? `https://t.me/${postPath}` : 'https://t.me/uzmilliymedia';
+
+        const textEl = wrap.querySelector('.tgme_widget_message_text');
+        const rawText = textEl ? textEl.innerText.trim() : 'Медиа хабар';
+        const shortText = rawText.length > 220 ? rawText.slice(0, 220) + '...' : rawText;
+
+        const timeEl = wrap.querySelector('time.time');
+        let dateLabel = 'Яқинда';
+        if (timeEl) {
+          const dtStr = timeEl.getAttribute('datetime');
+          if (dtStr) {
+            const d = new Date(dtStr);
+            if (!isNaN(d)) {
+              dateLabel = d.toLocaleDateString('uz-UZ') + ' ' + d.toLocaleTimeString('uz-UZ', {hour: '2-digit', minute: '2-digit'});
+            }
+          } else {
+            dateLabel = timeEl.innerText.trim();
+          }
+        }
+
+        const photoEl = wrap.querySelector('.tgme_widget_message_photo_wrap');
+        let photoHtml = '';
+        if (photoEl) {
+          const styleAttr = photoEl.getAttribute('style') || '';
+          const m = styleAttr.match(/url\(['"]?(.*?)['"]?\)/);
+          if (m && m[1]) {
+            photoHtml = `<div class="h-40 bg-slate-100 overflow-hidden"><img src="${m[1]}" alt="Янгилик сурати" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>`;
+          }
+        }
+
+        const card = document.createElement('div');
+        card.className = 'bg-slate-50/70 rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition flex flex-col justify-between group';
+        card.innerHTML = `
+          <div>
+            ${photoHtml}
+            <div class="p-4 space-y-2">
+              <div class="flex items-center justify-between text-[10px]">
+                <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold">@uzmilliymedia</span>
+                <span class="text-slate-400 font-mono">${dateLabel}</span>
+              </div>
+              <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-line">${shortText.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+            </div>
+          </div>
+          <div class="px-4 py-3 border-t border-slate-200/70 bg-white flex items-center justify-between text-xs">
+            <span class="text-slate-400 text-[11px]">Telegram канал</span>
+            <a href="${postUrl}" target="_blank" class="text-blue-700 hover:text-gov-coral font-bold hover:underline">Тўлиқ ўқиш &rarr;</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
     window.onload = function() {
       recalculateDeadlines();
       updateLiveDateTime();
       setInterval(updateLiveDateTime, 1000);
       renderAll();
+      loadTelegramChannelNews();
     };
   </script>
 </body>
