@@ -1,0 +1,32 @@
+name: Кунлик Telegram Эслатма (10:00 UZT)
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  send-reminders:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Telegram эслатмаларини юбориш
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          EXECUTOR_CHAT_IDS: ${{ secrets.EXECUTOR_CHAT_IDS }}
+        run: python3 scripts/telegram_reminder.py
+      - name: Аниқланган chat_id ларни сақлаш
+        run: |
+          if [ -n "$(git status --porcelain scripts/chat_ids.json)" ]; then
+            git config user.name "ozmma-bot"
+            git config user.email "bot@ozmma.uz"
+            git add scripts/chat_ids.json
+            git commit -m "chore: update discovered telegram chat_ids"
+            git push
+          fi
